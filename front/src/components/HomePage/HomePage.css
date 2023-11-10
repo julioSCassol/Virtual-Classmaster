@@ -1,0 +1,28 @@
+/* src/components/HomePage.css */
+.home-page {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+  }
+  
+  header {
+    background-color: #4285f4;
+    padding: 20px;
+    color: white;
+  }
+  
+  main {
+    padding: 20px;
+  }
+  
+  .classrooms {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .classroom {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+  }
+  
