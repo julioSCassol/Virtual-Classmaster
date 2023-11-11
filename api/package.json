@@ -1,13 +1,24 @@
 {
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only src/server.ts"
+    "knex": "node --no-warnings --loader tsx ./node_modules/bin/knex/cli.js",
+    "dev": "tsx watch src/main.ts"
   },
   "dependencies": {
+    "@fastify/cookie": "^9.1.0",
+    "@fastify/jwt": "^7.2.3",
     "@types/pg": "^8.10.9",
     "bcrypt": "^5.1.1",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "fastify": "^4.24.3",
+    "fastify-zod": "^1.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.0.1",
     "pg": "^8.11.3",
-    "uuid": "^9.0.1"
+    "tsx": "^4.1.1",
+    "uuid": "^9.0.1",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

@@ -1,15 +1,17 @@
-import { Router } from "express";
-import { createUserController } from "../../modules/user/UseCases/CreateUser";
-import { listUserController } from "../../modules/user/UseCases/ListUser";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
+import { UserController } from "./user.controllers"
+import { $ref } from "./user.schemas"
+import app from "../../server"
+import { RequireAuth } from "../middlewares/authentication"
 
-const userRoutes = Router();
+async function userRoutes(app: FastifyInstance){
+  
+  const userController = new UserController()
 
-userRoutes.post("/", (req,res)=>{
-    return createUserController.handle(req,res);
-})
+  app.post('/create', {schema:{body:$ref('createAccountBody')}} , userController.createUser)
+  app.post('/login', {schema:{body:$ref('loginBody')}}, userController.login)
+  app.get('/validateJWT', {preHandler: RequireAuth.bind(app)}, userController.validateJWT)
 
-userRoutes.get("/", (req,res)=>{
-    return listUserController.handle(req,res);
-})
+}
 
-export {userRoutes};
+export default userRoutes

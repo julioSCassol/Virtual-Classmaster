@@ -1,15 +1,23 @@
-import express from "express";
-import { userRoutes } from "./routes/user/user.routes";
+import { FastifyReply, FastifyRequest } from 'fastify'
+import cookie from '@fastify/cookie'
+import { env } from './env'
+import userRoutes from './routes/user/user.routes'
 
-const app = express();
+const app = require('fastify')()
 
-app.use(express.json());
 
-app.post("/courses", (req,res) =>{
-    const {name} = req.body;
-    return res.json({name});
+app.addHook('preHandler', async (request: FastifyRequest, reply: FastifyReply)=>{
+  console.log(`${request.method} - ${request.url}`)
 })
 
-app.use("/user", userRoutes);
+app.get('/healthcheck', async (request: FastifyRequest, reply: FastifyReply) =>{
+  reply.code(200).send('Everything is good!')
+})
 
-app.listen(3000, () => console.log("http://localhost:3000"));
+app.register(cookie)
+
+app.register(require('@fastify/jwt'),{
+  secret: env.JWTTOKEN
+})
+
+export default app
