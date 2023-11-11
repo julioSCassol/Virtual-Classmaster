@@ -1,3 +1,4 @@
+import { client } from "../../../../public/dbConnect";
 import { User } from "../model/User";
 
 class UserRepository {
@@ -16,7 +17,7 @@ class UserRepository {
         return UserRepository.INSTANCE;
     }
 
-    create({ name,email, password, isTeacher }){
+    async create({ name,email, password, isTeacher }){
         const user = new User();
         Object.assign(user,{
             name,
@@ -26,13 +27,17 @@ class UserRepository {
             created_at: new Date()
         });
         this.users.push(user);
+        
     }
     list(): User[]{
         return this.users;
     }
 
-    findByEmail(email: string): User | undefined{
-        const user = this.users.find(user => user.email === email);
+    async findByEmail(email: string): Promise<User>{
+        const result = client.query('SELECT email from users');
+        const users = (await result).rows;
+        const user = users.find(user => user.email === email);
+        console.log(user);
         return user;
     }
 }

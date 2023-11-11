@@ -1,14 +1,20 @@
+import { client } from "../../../../../public/dbConnect";
 import { UserRepository } from "../../repositories/UserRepository";
-
 class CreateUserUseCase{
     constructor(private userRepository: UserRepository){}
 
-    execute({ name,email, password, isTeacher }){
-        const UserExists = this.userRepository.findByEmail(email);
+    async execute({ name,email, password, isTeacher }): Promise<boolean>{
+        const UserExists = await this.userRepository.findByEmail(email);
         if (UserExists) {
-            throw new Error("Este Usuário já existe");
+            return false;
         }
         this.userRepository.create({name,email, password, isTeacher});
+        
+        client.query(
+            'INSERT INTO users (name, email, password, isteacher) VALUES (\$1, \$2, \$3, \$4)',
+            [name, email, password, isTeacher]
+        );
+        return true;
     }
 }
 
