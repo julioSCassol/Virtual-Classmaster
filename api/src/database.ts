@@ -5,7 +5,6 @@ import 'dotenv/config'
 export const config: Knex.Config = {
   client: env.DATABASE_CLIENT,
   connection: {
-    // connectionString: env.DATABASE_URL,
     host: env.DATABASE_HOST,
     port: env.DATABASE_PORT,
     user: env.DATABASE_USER,

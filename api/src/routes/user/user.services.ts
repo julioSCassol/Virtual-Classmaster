@@ -21,7 +21,7 @@ export class UserService{
       id: crypto.randomUUID(), 
       name, 
       email, 
-      ...encryptedPassword, 
+      ...encryptedPassword,
       created_at: new Date()
     })
     await this.repository.createUser(user, resultValidation)
