@@ -15,13 +15,14 @@ export class UserService{
 
 
   async createUser(body: createAccountType, resultValidation:ResultValidation){
-    const { name, email, password } = body;
+    const { name, email, password, is_teacher } = body;
     const encryptedPassword = await this._hashPassword(password)
     const user = insertAccountDatabase.parse({ 
       id: crypto.randomUUID(), 
       name, 
       email, 
       ...encryptedPassword,
+      is_teacher,
       created_at: new Date()
     })
     await this.repository.createUser(user, resultValidation)
@@ -45,11 +46,11 @@ export class UserService{
     const result = resultValidation.getResult().data
     const user = getAccountDB.parse(result)
     
-    const { id, hash, salt, name } = user
+    const { id, hash, salt, name, is_teacher } = user
     if (! await this._verifyPassword(password, salt, hash)){
       return resultValidation.addError("AUTHENTICATION_ERROR", "Invalid Password")
     }
-    const userDTO = accountDTO.parse({id, email, name})
+    const userDTO = accountDTO.parse({id, email, name, is_teacher})
     await this._generateJWT(userDTO, resultValidation)
     resultValidation.setResult({data: "Logged!"})
   }

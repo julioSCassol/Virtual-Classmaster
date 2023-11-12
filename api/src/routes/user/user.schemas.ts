@@ -5,6 +5,7 @@ const id = z.string()
 const name = z.string({required_error: "Need a name min 3 chars"}).min(3)
 const email = z.string({required_error:"Need a valid email"}).email()
 const password = z.string({required_error: "Need a valid password (8 char min)"}).min(8)
+const is_teacher = z.boolean()
 const salt = z.string()
 const hash = z.string()
 const created_at = z.coerce.date()
@@ -15,7 +16,8 @@ const exp = z.number()
 export const createAccountBody = z.object({
   name,
   email,
-  password
+  password,
+  is_teacher
 })
 export type createAccountType = z.infer<typeof createAccountBody>
 
@@ -23,6 +25,7 @@ export const insertAccountDatabase = z.object({
   id,
   name,
   email,
+  is_teacher,
   salt,
   hash,
   created_at
@@ -34,7 +37,8 @@ export type idUserType = z.infer<typeof id>
 export const accountDTO = z.object({
   id,
   email,
-  name
+  name,
+  is_teacher
 })
 export type accountDTOType = z.infer<typeof accountDTO>
 
@@ -48,6 +52,7 @@ export const getAccountDB = z.object({
   id,
   name,
   email,
+  is_teacher,
   salt,
   hash,
   created_at,
@@ -60,6 +65,7 @@ export const tokenFormaterSchema = z.object({
   id,
   email,
   name,
+  is_teacher,
   exp
 })
 export type tokenFormaterType = z.infer<typeof tokenFormaterSchema>
