@@ -1,8 +1,11 @@
-// src/components/ClassroomForm.js
+// src/components/ClassroomForm/ClassroomForm.js
 import React, { useState } from 'react';
 
 const ClassroomForm = ({ onClassroomCreate }) => {
   const [className, setClassName] = useState('');
+  const [subject, setSubject] = useState('');
+  const [teacher, setTeacher] = useState('');
+  const [students, setStudents] = useState('');
 
   const handleCreateClassroom = async () => {
     try {
@@ -12,12 +15,17 @@ const ClassroomForm = ({ onClassroomCreate }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ className }),
+        body: JSON.stringify({ name: className, subject, teacher, students }),
       });
 
       if (response.ok) {
         // Chama a função passada por prop para atualizar o estado do pai
         onClassroomCreate();
+        // Limpa os campos após a criação da sala de aula
+        setClassName('');
+        setSubject('');
+        setTeacher('');
+        setStudents('');
       } else {
         console.error('Erro ao criar sala de aula');
       }
@@ -35,6 +43,30 @@ const ClassroomForm = ({ onClassroomCreate }) => {
           type="text"
           value={className}
           onChange={(e) => setClassName(e.target.value)}
+        />
+      </label>
+      <label>
+        Matéria:
+        <input
+          type="text"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+        />
+      </label>
+      <label>
+        Professor Responsável:
+        <input
+          type="text"
+          value={teacher}
+          onChange={(e) => setTeacher(e.target.value)}
+        />
+      </label>
+      <label>
+        Estudantes Vinculados:
+        <input
+          type="text"
+          value={students}
+          onChange={(e) => setStudents(e.target.value)}
         />
       </label>
       <button onClick={handleCreateClassroom}>Criar Sala de Aula</button>
