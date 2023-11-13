@@ -1,7 +1,7 @@
 import { string } from "zod";
 import { DatabaseConnector } from "../../database";
 import { ResultValidation } from "../utils/result-validation";
-import { insertCourseDatabaseType } from "./course.schemas";
+import { insertCourseDatabaseType, findCourseBySubjectType, findCourseByStudentType } from "./course.schemas";
 
 export class CourseRepository {
     private databaseConnector: DatabaseConnector;
@@ -23,26 +23,26 @@ export class CourseRepository {
         }
     }
 
-    async findByTeacher(teacher: string, resultValidation: ResultValidation){
-        try {
-            const result = await this.databaseConnector.server('courses').where(
-                'teachers', '@>', [teacher]
-            );
-            if (result.length > 0) {
-                resultValidation.setResult({data: result[0]});
-            }else{
-                resultValidation.addError('TEACHER ERROR', 'No courses assigned to this teacher');
-            }
-        }catch(error){
-            console.log(error);
-            resultValidation.addError('Find Course Failed', `${error}`, true);
-        }
-    }
+    // async findByTeacher(course: findCourseBySubjectType, resultValidation: ResultValidation){
+    //     try {
+    //         const result = await this.databaseConnector.server('courses').where(
+    //             'teachers', '@>', [teacher]
+    //         );
+    //         if (result.length > 0) {
+    //             resultValidation.setResult({data: result[0]});
+    //         }else{
+    //             resultValidation.addError('TEACHER ERROR', 'No courses assigned to this teacher');
+    //         }
+    //     }catch(error){
+    //         console.log(error);
+    //         resultValidation.addError('Find Course Failed', `${error}`, true);
+    //     }
+    // }
     
-    async findByStudent(student: string, resultValidation: ResultValidation){
+    async findByStudent(course: findCourseByStudentType, resultValidation: ResultValidation){
         try {
             const result = await this.databaseConnector.server('courses').where(
-                'students', '@>', [student]
+                'students', '@>', course.students
             );
             if (result.length > 0) {
                 resultValidation.setResult({data: result[0]});
@@ -55,19 +55,21 @@ export class CourseRepository {
         }
     }
 
-    async findBySubject(subject: string, resultValidation: ResultValidation){
+    async findBySubject(course: findCourseBySubjectType, resultValidation: ResultValidation) {
         try {
             const result = await this.databaseConnector.server('courses').where(
-                'subjects', '@>', [subject]
+                'subjects', '@>', course.subjects
             );
+    
             if (result.length > 0) {
-                resultValidation.setResult({data: result[0]});
-            }else{
+                resultValidation.setResult({ data: result[0] });
+            } else {
                 resultValidation.addError('SUBJECTS ERROR', 'No courses assigned to this subject');
             }
-        }catch(error){
+        } catch (error) {
             console.log(error);
             resultValidation.addError('Find Course Failed', `${error}`, true);
         }
     }
+    
 }

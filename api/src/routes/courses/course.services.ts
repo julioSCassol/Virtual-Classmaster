@@ -1,6 +1,7 @@
+import { FastifyReply, FastifyRequest } from "fastify";
 import { ResultValidation } from "../utils/result-validation";
 import { CourseRepository } from "./course.repository";
-import { createCourseType, insertCourseDatabase } from "./course.schemas";
+import { createCourseType, insertCourseDatabase, findCourseBySubjectType } from "./course.schemas";
 
 export class CourseService{
     private repository: CourseRepository;
@@ -11,7 +12,6 @@ export class CourseService{
 
     async createCourse(body: createCourseType, resultValidation: ResultValidation){
         const {name, subjects, teachers, students} = body;
-        console.log(body);
         const course = {
             id: crypto.randomUUID(),
             name,
@@ -21,6 +21,13 @@ export class CourseService{
             created_at: new Date()
         };
         await this.repository.createCourse(course, resultValidation)
+        return resultValidation
+    }
+    async findBySubject(resultValidation: ResultValidation, req: FastifyRequest){
+        const subjects = req.query;
+        console.log(subjects)
+
+        await this.repository.findBySubject(subjects, resultValidation);
         return resultValidation
     }
 }
