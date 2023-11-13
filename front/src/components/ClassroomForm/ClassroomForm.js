@@ -45,6 +45,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
           onChange={(e) => setClassName(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Matéria:
         <input
@@ -53,6 +54,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
           onChange={(e) => setSubject(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Professor Responsável:
         <input
@@ -61,6 +63,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
           onChange={(e) => setTeacher(e.target.value)}
         />
       </label>
+      <br />
       <label>
         Estudantes Vinculados:
         <input
@@ -69,6 +72,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
           onChange={(e) => setStudents(e.target.value)}
         />
       </label>
+      <br />
       <button onClick={handleCreateClassroom}>Criar Sala de Aula</button>
     </div>
   );
