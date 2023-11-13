@@ -12,7 +12,12 @@ export class UserService{
   constructor(userRepository: UserRepository){
     this.repository = userRepository;
   }
+  
+  private loggedInUser: { id: string; name: string } | null = null;
 
+  getLoggedInUserId() {
+    return this.loggedInUser?.id || null;
+  }
 
   async createUser(body: createAccountType, resultValidation:ResultValidation){
     const { name, email, password, is_teacher } = body;
@@ -66,7 +71,7 @@ export class UserService{
   private async _generateJWT(user: accountDTOType, resultValidation:ResultValidation){
     // (timestreamp de agora + 1 segundo * 60 (1min) * 24 = 1 dia * 7 = 1 semana)
     //const exp = Math.floor(Date.now() / 1000) + (1 * 60 * 24 * 7)// 7d
-    const exp = Math.floor(Date.now() / 1000) + 10
+    const exp = Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60);
     const tokenFormatter = tokenFormaterSchema.parse({...user, exp})
     const jwtToken = app.jwt.sign(tokenFormatter)
     const token = await this._encrypt(jwtToken)

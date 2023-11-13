@@ -30,22 +30,17 @@ export const createCourseBody = z.object({
   students
 })
 export type createCourseType = z.infer<typeof createCourseBody>
-
-export const findCourseBySubjectBody = z.object({
-  subjects
+export const getCourseDB = z.object({
+  id,
+  name,
+  subjects,
+  teachers,
+  students,
+  created_at,
+  updated_at,
+  deleted_at
 })
-export type findCourseBySubjectType = z.infer<typeof findCourseBySubjectBody>
-
-export const findCourseByStudentBody = z.object({
-  students
-})
-export type findCourseByStudentType = z.infer<typeof findCourseByStudentBody>
-
-export const findCourseByTeacherBody = z.object({
-  teachers
-})
-export type findCourseByTeacherType = z.infer<typeof findCourseByTeacherBody>
-
+export type getCourseDBType = z.infer<typeof getCourseDB>
 export const insertCourseDatabase = z.object({
   id,
   name,
@@ -67,23 +62,28 @@ export const CourseDTO = z.object({
 })
 export type CourseDTOType = z.infer<typeof CourseDTO>
 
+
+export const findCourseBySubjectBody = z.object({
+  subjects
+})
+export type findCourseBySubjectType = z.infer<typeof findCourseBySubjectBody>
+
+export const findCourseByStudentBody = z.object({
+  students
+})
+export type findCourseByStudentType = z.infer<typeof findCourseByStudentBody>
+
+export const findCourseByTeacherBody = z.object({
+  teachers
+})
+export type findCourseByTeacherType = z.infer<typeof findCourseByTeacherBody>
+
+
 // export const loginBody = z.object({
 //   email,
 //   password
 // })
 // export type loginBodyType = z.infer<typeof loginBody>
-
-export const getCourseDB = z.object({
-  id,
-  name,
-  subjects,
-  teachers,
-  students,
-  created_at,
-  updated_at,
-  deleted_at
-})
-export type getCourseDBType = z.infer<typeof getCourseDB>
 
 const models = {
   createCourseBody,

@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { createCourseType, findCourseBySubjectType } from "./course.schemas";
+import { createCourseType } from "./course.schemas";
 import { ResultValidation } from "../utils/result-validation";
 import { CourseService } from "./course.services";
 import { CourseRepository } from "./course.repository";
