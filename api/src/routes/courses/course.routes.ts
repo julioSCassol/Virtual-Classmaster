@@ -6,7 +6,9 @@ async function courseRoutes(app:FastifyInstance) {
     const courseController = new CourseController();
 
     app.post('/create', {schema: {body:$ref('createCourseBody')}}, courseController.createCourse);
-    app.get('/searchbysubject', { schema: { querystring: $ref('findCourseBySubjectBody') } }, courseController.searchCourseBySubject);
+    app.get('/searchbysubject', { schema: { querystring: $ref('findCourseBySubjectBody') } }, courseController.findCourseBySubject);
+    app.get('/searchbystudent', { schema: { querystring: $ref('findCourseByStudentBody') } }, courseController.findCourseByStudent);
+    app.get('/searchbyteacher', { schema: { querystring: $ref('findCourseByTeacherBody') } }, courseController.findCourseByTeacher);
 }
 
 export default courseRoutes

@@ -30,4 +30,21 @@ export class CourseService{
         await this.repository.findBySubject(subjects, resultValidation);
         return resultValidation
     }
+
+
+    async findByStudent(resultValidation: ResultValidation, req: FastifyRequest){
+        const student = req.query;
+        console.log(student)
+
+        await this.repository.findByStudent(student, resultValidation);
+        return resultValidation
+    }
+
+    async findByTeacher(resultValidation: ResultValidation, req: FastifyRequest){
+        const teacher = req.query;
+        console.log(teacher)
+
+        await this.repository.findByTeacher(teacher, resultValidation);
+        return resultValidation
+    }
 }
