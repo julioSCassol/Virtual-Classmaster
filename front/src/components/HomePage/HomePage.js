@@ -15,13 +15,13 @@ const Classroom = ({ data }) => (
 
 const HomePage = () => {
   const [classrooms, setClassrooms] = useState([]);
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(false); // Alterado para true para sempre mostrar o formulário
 
   useEffect(() => {
     // Simulação de chamada à API para obter as salas de aula
     const fetchData = async () => {
       try {
-        const response = await fetch('sua-api-endpoint/classrooms');
+        const response = await fetch('localhost/courses');
         if (response.ok) {
           const data = await response.json();
           setClassrooms(data);
@@ -45,7 +45,6 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <main>
-        <button onClick={() => setShowForm(!showForm)}>Mostrar/Esconder Formulário</button>
         {showForm && <ClassroomForm onClassroomCreate={handleClassroomCreate} />}
         <section className="classrooms">
           {classrooms.map((classroom) => (
