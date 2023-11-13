@@ -41,6 +41,10 @@ export const findCourseByStudentBody = z.object({
 })
 export type findCourseByStudentType = z.infer<typeof findCourseByStudentBody>
 
+export const findCourseByTeacherBody = z.object({
+  teachers
+})
+export type findCourseByTeacherType = z.infer<typeof findCourseByTeacherBody>
 
 export const insertCourseDatabase = z.object({
   id,
@@ -83,7 +87,9 @@ export type getCourseDBType = z.infer<typeof getCourseDB>
 
 const models = {
   createCourseBody,
-  findCourseBySubjectBody
+  findCourseBySubjectBody,
+  findCourseByStudentBody,
+  findCourseByTeacherBody
 }
 
 const options = {
