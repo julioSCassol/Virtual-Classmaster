@@ -5,6 +5,8 @@ services:
     build: ./front
     ports:
       - "3000:3000"
+    volumes:
+      - ./front:/usr/app
     depends_on:
       - db
     networks:
@@ -12,8 +14,11 @@ services:
 
   api:
     build: ./api
+    command: yarn dev
     ports:
       - "5000:3000"
+    volumes:
+      - ./api:/usr/app
     depends_on:
       - db
     networks:

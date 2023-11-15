@@ -41,6 +41,8 @@ export const getCourseDB = z.object({
   deleted_at
 })
 export type getCourseDBType = z.infer<typeof getCourseDB>
+
+// variaveis que serao inseridas na database
 export const insertCourseDatabase = z.object({
   id,
   name,

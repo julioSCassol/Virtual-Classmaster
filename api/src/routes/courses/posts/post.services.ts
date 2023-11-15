@@ -12,7 +12,7 @@ export class PostService{
     }
 
     async createPost(req: FastifyRequest, body: createPostType, resultValidation: ResultValidation){
-        const {content, indexed_material, courseID} = body;
+        const {content, indexed_material, course_id, subjects_post} = body;
 
         if (req.user.is_teacher === true) {
             const teacherId = req.user.id;
@@ -21,8 +21,9 @@ export class PostService{
                 id: crypto.randomUUID(),
                 teacher: teacherId,
                 content,
-                courseID,
+                course_id,
                 indexed_material,
+                subjects_post,
                 created_at: new Date()
             };
             await this.repository.createPost(post, resultValidation);
@@ -33,7 +34,7 @@ export class PostService{
     }
 
     async createAssignment(req: FastifyRequest, body: createAssignmentType, resultValidation: ResultValidation){
-        const {content, indexed_material,courseID, limit_date, max_points, subjects_post} = body;
+        const {content, indexed_material,course_id, limit_date, max_points, subjects_post} = body;
 
         if (req.user.is_teacher === true) {
             const teacherId = req.user.id;
@@ -43,7 +44,7 @@ export class PostService{
                 teacher: teacherId,
                 content,
                 indexed_material,
-                courseID,
+                course_id,
                 subjects_post,
                 limit_date,
                 max_points,
@@ -57,8 +58,8 @@ export class PostService{
     }
 
     async getPostsByCourse(resultValidation: ResultValidation, req: FastifyRequest){
-        const courseID = req.query;
-        await this.repository.getPostsByCourse(courseID, resultValidation);
+        const course_id = req.query;
+        await this.repository.getPostsByCourse(course_id, resultValidation);
         return resultValidation
     }
 }

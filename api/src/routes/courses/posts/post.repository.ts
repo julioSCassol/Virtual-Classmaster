@@ -29,11 +29,11 @@ export class PostRepository{
         }
     }
 
-    async getPostsByCourse(courseID, resultValidation: ResultValidation){
+    async getPostsByCourse(course_id, resultValidation: ResultValidation){
         try {
-            console.log('Course ID:', courseID.courseID);
+            console.log('Course ID:', course_id.course_id);
             const result = await this.databaseConnector.server('courses').where({
-                id: courseID.courseID,
+                id: course_id.course_id,
             });
             if(result.length > 0){
                 resultValidation.setResult({data: result[0]});

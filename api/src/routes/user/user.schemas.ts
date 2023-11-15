@@ -21,6 +21,7 @@ export const createAccountBody = z.object({
 })
 export type createAccountType = z.infer<typeof createAccountBody>
 
+// variaveis que serao inseridas na database
 export const insertAccountDatabase = z.object({
   id,
   name,

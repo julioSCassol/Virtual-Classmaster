@@ -9,30 +9,29 @@ const indexed_material = z.string();
 const created_at = z.coerce.date();
 const updated_at = z.coerce.date().nullable().default(null);
 const deleted_at = z.coerce.date().nullable().default(null);
-const courseID = z.string();
+const course_id = z.string();
 
 export const createPostBody = z.object({
-    //talvez o teacher de problema    
-    // teacher,
     content,
     indexed_material,
     subjects_post,
-    courseID
+    course_id
 })
 export type createPostType = z.infer<typeof createPostBody>
 
 export const getPostsByCourseBody = z.object({
-    courseID
+    course_id
 })
 export type getPostsByCourseType = z.infer<typeof getPostsByCourseBody>
 
+// variaveis que serao inseridas na database
 export const insertPostDatabase = z.object({
     id,
     teacher,
     content,
     indexed_material,
     subjects_post,
-    courseID,
+    course_id,
     created_at
 })
 export type insertPostDatabaseType = z.infer<typeof insertPostDatabase>
@@ -42,7 +41,7 @@ export const PostDTO = z.object({
     teacher,
     content,
     indexed_material,
-    courseID,
+    course_id,
     subjects_post
 })
 
