@@ -1,57 +1,40 @@
 // src/components/HomePage/HomePage.js
 import React, { useState, useEffect } from 'react';
-import './HomePage.css';
-import ClassroomForm from '../ClassroomForm/ClassroomForm';
-
-const Classroom = ({ data }) => (
-  <div className="classroom">
-    <h2>{data.name}</h2>
-    <p>Matéria: {data.subject}</p>
-    <p>Professor: {data.teacher}</p>
-    <p>Estudantes Vinculados: {data.students}</p>
-    <button>Entrar</button>
-  </div>
-);
 
 const HomePage = () => {
-  const [classrooms, setClassrooms] = useState([]);
-  const [showForm, setShowForm] = useState(false); // Alterado para true para sempre mostrar o formulário
+  const [userClassrooms, setUserClassrooms] = useState([]);
 
   useEffect(() => {
-    // Simulação de chamada à API para obter as salas de aula
-    const fetchData = async () => {
+    // Lógica para obter as salas de aula do usuário (substitua com sua lógica)
+    const fetchUserClassrooms = async () => {
       try {
-        const response = await fetch('localhost/courses');
+        const response = await fetch('sua-api-endpoint/user-classrooms');
         if (response.ok) {
           const data = await response.json();
-          setClassrooms(data);
+          setUserClassrooms(data);
         } else {
-          console.error('Erro ao obter lista de salas de aula');
+          console.error('Erro ao obter salas de aula do usuário');
         }
       } catch (error) {
         console.error('Erro ao conectar com a API', error);
       }
     };
 
-    fetchData();
-  }, []); // A dependência vazia garante que isso só seja executado uma vez
-
-  const handleClassroomCreate = () => {
-    setShowForm(false);
-    // Atualiza a lista de salas de aula
-    // Você pode chamar a função de busca novamente ou de outra forma atualizar a lista
-  };
+    fetchUserClassrooms();
+  }, []);
 
   return (
-    <div className="home-page">
-      <main>
-        {showForm && <ClassroomForm onClassroomCreate={handleClassroomCreate} />}
-        <section className="classrooms">
-          {classrooms.map((classroom) => (
-            <Classroom key={classroom.id} data={classroom} />
+    <div>
+      <h2>Minhas Salas de Aula</h2>
+      {userClassrooms.length === 0 ? (
+        <p>Você não está cadastrado em nenhuma sala de aula ainda.</p>
+      ) : (
+        <ul>
+          {userClassrooms.map((classroom) => (
+            <li key={classroom.id}>{classroom.name}</li>
           ))}
-        </section>
-      </main>
+        </ul>
+      )}
     </div>
   );
 };

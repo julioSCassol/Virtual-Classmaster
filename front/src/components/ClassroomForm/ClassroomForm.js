@@ -6,7 +6,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
   const [subject, setSubject] = useState('');
   const [teacher, setTeacher] = useState('');
   const [students, setStudents] = useState('');
-
+//AINDA NÃO FIZ MENSAGEM DE ERRO, REPETINDO AINDA NÃO FIZ MENSAGEM DERRO
   const handleCreateClassroom = async () => {
     try {
       // Fazer uma chamada à API para criar uma nova sala de aula
@@ -39,40 +39,44 @@ const ClassroomForm = ({ onClassroomCreate }) => {
       <h2>Criar Nova Sala de Aula</h2>
       <label>
         Nome da Sala:
+        <br />
         <input
           type="text"
           value={className}
           onChange={(e) => setClassName(e.target.value)}
         />
       </label>
-      <br />
+      
       <label>
         Matéria:
+        <br />
         <input
           type="text"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
         />
       </label>
-      <br />
+      
       <label>
         Professor Responsável:
+        <br />
         <input
           type="text"
           value={teacher}
           onChange={(e) => setTeacher(e.target.value)}
         />
       </label>
-      <br />
+      
       <label>
         Estudantes Vinculados:
+        <br />
         <input
           type="text"
           value={students}
           onChange={(e) => setStudents(e.target.value)}
         />
       </label>
-      <br />
+      
       <button onClick={handleCreateClassroom}>Criar Sala de Aula</button>
     </div>
   );

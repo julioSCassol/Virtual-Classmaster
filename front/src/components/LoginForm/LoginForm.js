@@ -1,11 +1,16 @@
 // src/components/LoginForm/LoginForm.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './LoginForm.css';
 
-const LoginForm = ({ onSignupClick }) => {
+const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,48 +20,64 @@ const LoginForm = ({ onSignupClick }) => {
     });
   };
 
+  const setSuccess = (message) => {
+    setSuccessMessage(message);
+    setErrorMessage('');
+  };
+
+  const setError = (message) => {
+    setErrorMessage(message);
+    setSuccessMessage('');
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Lógica de login (substitua com sua lógica)
     try {
-      const response = await fetch('sua-api-endpoint/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      // Lógica de login (substitua com sua lógica)
 
-      if (response.ok) {
-        console.log('Usuário autenticado com sucesso!');
-      } else {
-        console.error('Erro ao autenticar usuário');
-      }
+      // Se a operação for bem-sucedida:
+      setSuccess('Login bem-sucedido!');
+      onLoginSuccess();
     } catch (error) {
-      console.error('Erro ao conectar com a API', error);
+      // Se ocorrer um erro:
+      setError('Erro ao fazer login. Verifique suas credenciais.');
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          E-mail:
-          <input type="email" name="email" value={formData.email} onChange={handleChange} />
-        </label>
-        <br />
-        <label>
-          Senha:
-          <input type="password" name="password" value={formData.password} onChange={handleChange} />
-        </label>
-        <br />
-        <button type="submit">Login</button>
-      </form>
-      <p>
-        Não possui conta?{' '}
-        <button onClick={onSignupClick}>Clique aqui para cadastrar-se</button>
-      </p>
+    <div className="popup">
+      <div className="popup-content">
+        {successMessage && <div className="success-message">{successMessage}</div>}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+
+        <form onSubmit={handleSubmit}>
+          <label>
+            E-mail:
+            <br />
+            <input type="email" name="email" value={formData.email} onChange={handleChange} />
+          </label>
+
+          <label>
+            Senha:
+            <br />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+            />
+          </label>
+          <br />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          Não possui conta?{' '}
+          <Link to="/signup" className="signup-link">
+            <button className="signup-button">Clique aqui para cadastrar-se</button>
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
