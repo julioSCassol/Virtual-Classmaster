@@ -15,6 +15,13 @@ export class PostController{
         applyResult(resultValidation, res, 201)
     }
 
+    async createAssignment(req: FastifyRequest<{Body: createPostType}>, res: FastifyReply){
+        const resultValidation = new ResultValidation();
+        const postService = new PostService(new PostRepository(new DatabaseConnector()))
+        await postService.createAssignment(req, req.body, resultValidation)
+        applyResult(resultValidation, res, 201)
+    }
+
     async getPostsByCourse(req: FastifyRequest, res: FastifyReply){
         const resultValidation = new ResultValidation();
         const postService = new PostService(new PostRepository(new DatabaseConnector()))

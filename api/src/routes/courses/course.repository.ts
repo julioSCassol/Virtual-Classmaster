@@ -30,6 +30,7 @@ export class CourseRepository {
             );
             if (result.length > 0) {
                 resultValidation.setResult({data: result[0]});
+                return result
             }else{
                 resultValidation.addError('TEACHER ERROR', 'No courses assigned to this teacher');
             }
@@ -46,6 +47,7 @@ export class CourseRepository {
             );
             if (result.length > 0) {
                 resultValidation.setResult({data: result[0]});
+                return result
             }else{
                 resultValidation.addError('STUDENT ERROR', 'No courses assigned to this student');
             }
@@ -63,6 +65,7 @@ export class CourseRepository {
     
             if (result.length > 0) {
                 resultValidation.setResult({ data: result });
+                return result
             } else {
                 resultValidation.addError('SUBJECTS ERROR', 'No courses assigned to these subjects');
             }
