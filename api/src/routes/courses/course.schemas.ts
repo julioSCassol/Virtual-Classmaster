@@ -78,13 +78,6 @@ export const findCourseByTeacherBody = z.object({
 })
 export type findCourseByTeacherType = z.infer<typeof findCourseByTeacherBody>
 
-
-// export const loginBody = z.object({
-//   email,
-//   password
-// })
-// export type loginBodyType = z.infer<typeof loginBody>
-
 const models = {
   createCourseBody,
   findCourseBySubjectBody,

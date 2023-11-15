@@ -1,0 +1,3 @@
+todas as rotas estao em /src/routes.txt
+
+todos as variaveis que serao inseridas na database estao em /src/routes/nomeDaTabela/nomeDaTabela.schemas.ts, na função insert{nomeDaTabela}Database

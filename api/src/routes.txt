@@ -1,0 +1,17 @@
+--- USUARIO ---
+POST - /user/login - login do user
+POST - /user/create - criar user
+GET  - /user/validateJWT - validar se o user ainda pode ficar logado(acho que n vai usar, mas vai que)
+
+--- CURSO ---
+POST - /course/create - cria curso
+GET  - /course/searchbysubject - pesquisa curso por materia (usa params)
+GET  - /course/searchbystudent - pesquisa curso por email do aluno (usa params)
+GET  - /course/searchbyteacher - pesquisa curso por email do professor (usa params)
+
+--- POST ---
+POST - /course/post/create - cria um post
+GET  - /course/post/getpostsbycourse - pesquisa post com id do curso
+
+--- TAREFAS (SAO UM TIPO DE POST) ---
+POST - course/post/createassignment - cria um assignment
