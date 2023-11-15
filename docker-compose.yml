@@ -1,15 +1,23 @@
 version: '3'
 
 services:
-  app:
-    build: .
-    command: yarn dev
+  front:
+    build: ./front
     ports:
       - "3000:3000"
-    volumes:
-      - .:/usr/app
     depends_on:
       - db
+    networks:
+      - my-network
+
+  api:
+    build: ./api
+    ports:
+      - "5000:3000"
+    depends_on:
+      - db
+    networks:
+      - my-network
 
   db:
     image: postgres:latest
@@ -20,3 +28,8 @@ services:
       POSTGRES_DB: default
     ports:
       - "5432:5432"
+    networks:
+      - my-network
+
+networks:
+  my-network:
