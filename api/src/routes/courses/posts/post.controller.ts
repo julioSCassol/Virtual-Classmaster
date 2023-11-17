@@ -28,4 +28,11 @@ export class PostController{
         await postService.getPostsByCourse(resultValidation, req);
         applyResult(resultValidation, res, 201);
     }
+
+    async getPostsByTeacher(req:FastifyRequest, res: FastifyReply){
+        const resultValidation = new ResultValidation();
+        const postService = new PostService(new PostRepository(new DatabaseConnector()));
+        await postService.getPostsByTeacher(resultValidation, req);
+        applyResult(resultValidation, res, 201)
+    }
 }
