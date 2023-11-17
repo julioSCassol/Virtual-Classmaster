@@ -10,9 +10,9 @@ async function main(){
     // await insertCouseRoutes(app)
     app.listen({
       host:"0.0.0.0",
-      port:3000
+      port:5000
     }).then(()=>{
-      console.log("server listening on port ", 3000);
+      console.log("server listening on port ", 5000);
     })
   }catch(e){
     console.log(e)
