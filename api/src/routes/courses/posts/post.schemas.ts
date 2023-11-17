@@ -24,6 +24,11 @@ export const getPostsByCourseBody = z.object({
 })
 export type getPostsByCourseType = z.infer<typeof getPostsByCourseBody>
 
+export const getPostsByTeacherBody = z.object({
+    teacher
+})
+export type getPostsByTeacherBody = z.infer<typeof getPostsByTeacherBody>
+
 // variaveis que serao inseridas na database
 export const insertPostDatabase = z.object({
     id,
@@ -71,6 +76,7 @@ export const AssignmentDTO = PostDTO.extend({
 const models = {
     createPostBody,
     getPostsByCourseBody,
+    getPostsByTeacherBody,
     createAssignmentBody
 }
   

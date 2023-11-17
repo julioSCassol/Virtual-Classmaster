@@ -29,21 +29,43 @@ export class PostRepository{
         }
     }
 
-    async getPostsByCourse(course_id, resultValidation: ResultValidation){
+    async getPostsByCourse(course_id, resultValidation: ResultValidation) {
         try {
             console.log('Course ID:', course_id.course_id);
-            const result = await this.databaseConnector.server('courses').where({
-                id: course_id.course_id,
+            
+            // verifica por meio da FK
+            const posts = await this.databaseConnector.server('posts').where({
+                course_id: course_id.course_id,
             });
-            if(result.length > 0){
-                resultValidation.setResult({data: result[0]});
-            }else{
-                resultValidation.addError('COURSE ERROR', 'Course Not Found');
+    
+            if (posts.length > 0) {
+                resultValidation.setResult({ data: posts });
+            } else {
+                resultValidation.addError('POSTS ERROR', 'No Posts Found for the Course');
             }
         } catch (error) {
             console.error(error);
-            resultValidation.addError('Find Course Failed', `${error}`, true);
+            resultValidation.addError('Find Posts Failed', `${error}`, true);
+        }
+    }
+    
+    async getPostsByTeacher(teacher_id, resultValidation: ResultValidation) {
+        try {
+            console.log('Course ID:', teacher_id.course_id);
             
+            // verifica por meio da FK
+            const posts = await this.databaseConnector.server('posts').where({
+                teacher: teacher_id.teacher,
+            });
+    
+            if (posts.length > 0) {
+                resultValidation.setResult({ data: posts });
+            } else {
+                resultValidation.addError('POSTS ERROR', 'No Posts Found for the Course');
+            }
+        } catch (error) {
+            console.error(error);
+            resultValidation.addError('Find Posts Failed', `${error}`, true);
         }
     }
 }

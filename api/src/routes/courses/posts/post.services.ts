@@ -62,4 +62,10 @@ export class PostService{
         await this.repository.getPostsByCourse(course_id, resultValidation);
         return resultValidation
     }
+
+    async getPostsByTeacher(resultValidation: ResultValidation, req: FastifyRequest){
+        const teacher_id = req.query;
+        await this.repository.getPostsByTeacher(teacher_id, resultValidation);
+        return resultValidation;
+    }
 }
