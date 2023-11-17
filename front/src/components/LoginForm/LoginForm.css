@@ -1,51 +1,60 @@
-/* src/components/LoginForm.css */
 .login-form {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 15px;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  p {
-    margin-top: 15px;
-    font-size: 14px;
-  }
-  
-  button.signup-link {
-    background-color: transparent;
-    color: #4caf50;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-  }
-  
-  button.signup-link:hover {
-    text-decoration: underline;
-  }
-  
+  max-width: 400px;
+  margin: 50px auto; /* Centralizar verticalmente e adicionar um espaçamento superior */
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input {
+  width: 15%; /* Alterado para 15% para ocupar toda a largura disponível */
+  padding: 10px; /* Reduzir o padding para uma aparência mais compacta */
+  font-size: 16px; /* Ajustar o tamanho da fonte */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px; /* Reduzir o espaçamento inferior */
+  align-items: center;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+p {
+  margin-top: 15px; /* Reduzir o espaçamento superior */
+  font-size: 14px;
+  text-align: center;
+}
+
+button.signup-link {
+  background-color: transparent;
+  color: #4caf50;
+  border: 1px solid #4caf50; /* Adicionando uma borda ao link */
+  padding: 12px 20px; /* Ajustando o padding para corresponder ao botão principal */
+  cursor: pointer;
+  font-size: 16px; /* Ajustar o tamanho da fonte */
+  text-decoration: none; /* Remover a decoração de texto padrão do link */
+  display: inline-block; /* Certificar-se de que o link se comporte como um bloco em linha */
+}
+
+button.signup-link:hover {
+  text-decoration: underline;
+}
