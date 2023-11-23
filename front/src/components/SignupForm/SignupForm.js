@@ -1,4 +1,3 @@
-// src/components/SignupForm.js
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './SignupForm.css';
@@ -8,17 +7,21 @@ const SignupForm = () => {
     name: '',
     email: '',
     password: '',
-    userType: 'student',
+    is_teacher: false, // Adicionando a propriedade is_teacher como um booleano
   });
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+
+    // Se o tipo for uma caixa de seleção (checkbox), use o valor booleano
+    const newValue = type === 'checkbox' ? checked : value;
+
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: newValue,
     });
   };
 
@@ -42,13 +45,32 @@ const SignupForm = () => {
     }
 
     try {
-      // Enviar dados para a API (substitua com sua lógica)
+      // Enviar dados para a API
+      const response = await fetch('http://localhost:5000/user/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          is_teacher: formData.is_teacher,
+        }),
+      });
 
-      // Se a operação for bem-sucedida:
-      setSuccess('Cadastro realizado com sucesso!');
+      const result = await response.json();
+
+      if (response.ok) {
+        // Se a operação for bem-sucedida:
+        setSuccess('Cadastro realizado com sucesso!');
+      } else {
+        // Se ocorrer um erro:
+        setError(`Erro ao cadastrar usuário. ${result.message}`);
+      }
     } catch (error) {
-      // Se ocorrer um erro:
-      setError('Erro ao cadastrar usuário. Verifique seus dados.');
+      // Se ocorrer um erro de rede:
+      setError('Erro ao conectar com a API. Verifique sua conexão com a internet.');
     }
   };
 
@@ -78,10 +100,13 @@ const SignupForm = () => {
       <label>
         Você é um:
         <br />
-        <select name="userType" value={formData.userType} onChange={handleChange}>
-          <option value="student">Estudante</option>
-          <option value="teacher">Professor</option>
-        </select>
+        <input
+          type="checkbox"
+          name="is_teacher"
+          checked={formData.is_teacher}
+          onChange={handleChange}
+        />
+        Professor
       </label>
 
       <button type="submit">Cadastrar</button>
@@ -89,8 +114,8 @@ const SignupForm = () => {
       <p>
         Já possui conta?{' '}
         <Link to="/login" className="login-link">
-            Clique aqui para fazer login
-          </Link>
+          Clique aqui para fazer login
+        </Link>
       </p>
     </form>
   );
