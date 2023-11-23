@@ -1,7 +1,11 @@
+import cors from 'cors';
 import { insertRoutes } from './routes';
 // import { insertCouseRoutes } from './routes/courses/course.routes';
 import insertSchemas from './schemas';
 import app from './server'
+
+app.use(cors());
+
 
 async function main(){
   try{
