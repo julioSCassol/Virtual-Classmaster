@@ -4,7 +4,8 @@ import { insertRoutes } from './routes';
 import insertSchemas from './schemas';
 import app from './server';
 
-app.register(cors, { 
+app.register(cors, {
+  origin: 'http://localhost:3000',
   credentials: true,
 });
 

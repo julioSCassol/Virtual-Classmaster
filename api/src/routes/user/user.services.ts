@@ -41,24 +41,38 @@ export class UserService{
   }
 
 
-  async login(body: loginBodyType, resultValidation: ResultValidation){
-    const { email, password } = body
+  async login(body: loginBodyType, resultValidation: ResultValidation) {
+    try {
+      const { email, password } = body;
 
-    await this.repository.findByEmail(email, resultValidation)
-    if (resultValidation.hasError()){
-      return resultValidation
+      await this.repository.findByEmail(email, resultValidation);
+
+      if (resultValidation.hasError()) {
+        return resultValidation;
+      }
+
+      const result = resultValidation.getResult().data;
+      const user = getAccountDB.parse(result);
+
+      const { id, hash, salt, name, is_teacher } = user;
+
+      if (!await this._verifyPassword(password, salt, hash)) {
+        return resultValidation.addError("AUTHENTICATION_ERROR", "Invalid Password");
+      }
+
+      const userDTO = accountDTO.parse({ id, email, name, is_teacher });
+      const token = await this._generateJWT(userDTO, resultValidation);
+
+      // Now you can return the token along with the result
+      resultValidation.setResult({ data:token });
+
+      return resultValidation;
+    } catch (error) {
+      console.error('Error during login:', error);
+      throw error;
     }
-    const result = resultValidation.getResult().data
-    const user = getAccountDB.parse(result)
-    
-    const { id, hash, salt, name, is_teacher } = user
-    if (! await this._verifyPassword(password, salt, hash)){
-      return resultValidation.addError("AUTHENTICATION_ERROR", "Invalid Password")
-    }
-    const userDTO = accountDTO.parse({id, email, name, is_teacher})
-    await this._generateJWT(userDTO, resultValidation)
-    resultValidation.setResult({data: "Logged!"})
   }
+
 
   private async _verifyPassword(candidatePassword: string, salt: string, hash: string):Promise<boolean>{
     const candidateHash = crypto.pbkdf2Sync(candidatePassword, salt, 1000, 200, "sha512").toString('hex');
@@ -68,14 +82,20 @@ export class UserService{
     return false
   }
 
-  private async _generateJWT(user: accountDTOType, resultValidation:ResultValidation){
-    // (timestreamp de agora + 1 segundo * 60 (1min) * 24 = 1 dia * 7 = 1 semana)
-    //const exp = Math.floor(Date.now() / 1000) + (1 * 60 * 24 * 7)// 7d
-    const exp = Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60);
-    const tokenFormatter = tokenFormaterSchema.parse({...user, exp})
-    const jwtToken = app.jwt.sign(tokenFormatter)
-    const token = await this._encrypt(jwtToken)
-    return resultValidation.setCookie({name: "token", value: token, opts: {path: '/'}})
+  private async _generateJWT(user: accountDTOType, resultValidation: ResultValidation): Promise<string> {
+    try {
+      const exp = Math.floor(Date.now() / 1000) + (7 * 24 * 60 * 60);
+      const tokenFormatter = tokenFormaterSchema.parse({ ...user, exp });
+      const jwtToken = app.jwt.sign(tokenFormatter);
+      const token = await this._encrypt(jwtToken);
+      await resultValidation.setCookie({ name: "token", value: token, opts: { path: '/' } });
+
+      // Return the generated token
+      return token;
+    } catch (error) {
+      console.error('Error generating JWT:', error);
+      throw error;
+    }
   }
 
   private async _encrypt(text:string) {
