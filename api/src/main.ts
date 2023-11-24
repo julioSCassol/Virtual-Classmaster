@@ -5,7 +5,7 @@ import insertSchemas from './schemas';
 import app from './server';
 
 app.register(cors, { 
-  // put your options here
+  credentials: true,
 });
 
 app.addHook('preHandler', async (request: FastifyRequest, reply: FastifyReply) => {
