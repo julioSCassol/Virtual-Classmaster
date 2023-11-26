@@ -27,8 +27,8 @@ export class UserController{
 
   async validateJWT(req:FastifyRequest, res: FastifyReply){
     const resultValidation = new ResultValidation()
-    console.log(req.user.id, ' - ', req.user.name, ' - ', req.user.email)
-    resultValidation.setResult({ data: [req.user.id, req.user.name, req.user.email] });
+    console.log(req.user.id, ' - ', req.user.name, ' - ', req.user.email, req.user.is_teacher)
+    resultValidation.setResult({ data: [req.user.id, req.user.name, req.user.email, req.user.is_teacher] });
     applyResult(resultValidation, res, 200)
   }
 }
