@@ -20,7 +20,7 @@
   }
   
   .input {
-    width: 15%;
+    width: 25%;
     padding: 12px;
     font-size: 18px;
     border: 1px solid #ccc;
@@ -37,6 +37,8 @@
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
+    justify-content: center;
+    display: flex;
   }
   
   button:hover {
@@ -76,4 +78,11 @@
 
   
   /* Adicione estilos adicionais conforme necessário */
+.Tentativa {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
   

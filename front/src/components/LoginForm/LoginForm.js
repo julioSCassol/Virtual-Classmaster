@@ -1,6 +1,7 @@
 // src/components/LoginForm/LoginForm.js
+// Importe os hooks necessários do React Router
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
 const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
@@ -11,6 +12,9 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  // Use o hook useNavigate para obter a função de navegação
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,14 +38,55 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
     e.preventDefault();
 
     try {
-      // Lógica de login (substitua com sua lógica)
+      const response = await fetch('http://localhost:5000/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-      // Se a operação for bem-sucedida:
-      setSuccess('Login bem-sucedido!');
-      onLoginSuccess();
+      if (response.ok) {
+        const qlc = await response.json(); //qlc
+        const token = qlc.data
+        console.log(token);
+        setSuccess('Login bem-sucedido!');
+
+        // Faça uma solicitação para validar o JWT e obter informações do usuário 
+        const userResponse = await fetch('http://localhost:5000/user/validateJWT', {
+          method: 'GET',
+          headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },            
+          },
+        );
+
+        // userResponse.body.getReader().read().then(({ value, done }) => {
+        //   if (!done) {
+        //     let decoder = new TextDecoder('utf-8');
+        //     console.log(decoder.decode(value));
+        //   }
+        // });
+        
+        if (userResponse.ok) {
+          const { user } = await userResponse.json();
+
+          // Verifique o userType e redirecione com base nisso
+          if (user && user.is_teacher) {
+            navigate('/professor-home');
+          } else {
+            navigate('/aluno-home');
+          }
+
+          onLoginSuccess(user.name);
+        } else {
+          setError('Erro ao obter informações do usuário.');
+        }
+      } else {
+        const result = await response.json();
+        setError(`Erro ao fazer login. ${result.message}`);
+      }
     } catch (error) {
-      // Se ocorrer um erro:
-      setError('Erro ao fazer login. Verifique suas credenciais.');
+      console.error(error);
+      setError('Erro ao conectar com a API. Verifique sua conexão com a internet.');
     }
   };
 
@@ -50,7 +95,7 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
       <div className="popup-content">
         {successMessage && <div className="success-message">{successMessage}</div>}
         {errorMessage && <div className="error-message">{errorMessage}</div>}
-
+    
         <form onSubmit={handleSubmit}>
           <label>
             E-mail:
@@ -74,7 +119,9 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
         <p>
           Não possui conta?{' '}
           <Link to="/signup" className="signup-link">
-            <button className="signup-button">Clique aqui para cadastrar-se</button>
+            <button className="signup-button" onClick={onSignupClick}>
+              Clique aqui para cadastrar-se
+            </button>
           </Link>
         </p>
       </div>

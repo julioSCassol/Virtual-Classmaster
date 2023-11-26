@@ -1,6 +1,6 @@
 // src/components/HomePage/HomePage.js
 import React, { useState, useEffect } from 'react';
-
+import './HomePage.css';
 const HomePage = () => {
   const [userClassrooms, setUserClassrooms] = useState([]);
 

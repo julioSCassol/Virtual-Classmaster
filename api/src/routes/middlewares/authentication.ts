@@ -6,7 +6,8 @@ const jwtValidator = require('jsonwebtoken')
 
 export const RequireAuth = function (request:FastifyRequest, reply:FastifyReply, done:HookHandlerDoneFunction): void{
   try{
-    const token = request.headers.cookie?.split('token=')[1]?.split(';')[0]
+    console.log(request.headers.authorization.split(' ')[1])
+    const token = request.headers.authorization.split(' ')[1]
     if(!token){
       reply.code(400).send('Token not Found')
       return
@@ -14,7 +15,7 @@ export const RequireAuth = function (request:FastifyRequest, reply:FastifyReply,
     const jwt = decrypt(token)
     var decoded = jwtValidator.verify(jwt, env.JWTTOKEN);
     if(!decoded){
-      reply.clearCookie('token')
+      // reply.clearCookie('token')
       reply.code(401).send('UNAUTHORIZED')
       return
     }
@@ -23,27 +24,32 @@ export const RequireAuth = function (request:FastifyRequest, reply:FastifyReply,
     done()
   }catch(e){
     console.log(e)
-    reply.clearCookie('token')
+    // reply.clearCookie('token')
     reply.code(401).send('UNAUTHORIZED')
   }
 }
 
-function decrypt(encryptedText:string) {
-  try{
-    const algorithm = 'aes-256-cbc';
-    const key = crypto.createHash('sha256').update(env.ENCRYPTKEY).digest('base64').slice(0, 32);
-    const ivHex = encryptedText.split('%3A')[0]
-    if (!ivHex) {
-      throw new Error('IV is missing');
+function decrypt(encryptedText: string) {
+  try {
+    const parts = encryptedText.split(':');
+    if (parts.length !== 2) {
+      throw new Error('Invalid token format');
     }
+
+    const ivHex = parts[0];
+    const encrypted = parts[1];
+
     const iv = Buffer.from(ivHex, 'hex');
-    const encrypted = encryptedText.split('%3A')[1]
-    const decipher = crypto.createDecipheriv(algorithm, key, iv);
+    const key = crypto.createHash('sha256').update(env.ENCRYPTKEY).digest('base64').slice(0, 32);
+    const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+    
     let decrypted = decipher.update(encrypted, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
+
     return decrypted;
-  }catch(e){
-    console.log(e)
-    return new Error()
+  } catch (e) {
+    console.log(e);
+    return undefined;
   }
-}  
+}
+  

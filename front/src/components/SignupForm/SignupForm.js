@@ -75,6 +75,7 @@ const SignupForm = () => {
   };
 
   return (
+    <div class="Tentativa">
     <form onSubmit={handleSubmit}>
       {successMessage && <div className="success-message">{successMessage}</div>}
       {errorMessage && <div className="error-message">{errorMessage}</div>}
@@ -118,7 +119,9 @@ const SignupForm = () => {
         </Link>
       </p>
     </form>
+  </div>
   );
+  
 };
 
 export default SignupForm;

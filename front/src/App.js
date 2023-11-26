@@ -1,11 +1,13 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
 import CreateClassroomPage from './components/CreateClassroomPage/CreateClassroomPage';
 import LoginForm from './components/LoginForm/LoginForm';
-import SignupForm from './components/SignupForm/SignupForm'; // Importe o componente de cadastro
-import './App.css';
+import SignupForm from './components/SignupForm/SignupForm';
+import AlunoHomePage from './components/HomePage/AlunoHomePage';
+import ProfessorHomePage from './components/HomePage/ProfessorHomePage';
 
 function App() {
   const handleAddClassroomClick = () => {
@@ -21,11 +23,8 @@ function App() {
   };
 
   const handleSignupClick = () => {
-    console.log('Clicou em cadastrar');
-    // Redirecione para a página de cadastro
     window.location.href = '/signup';
   };
-  
 
   return (
     <Router>
@@ -34,7 +33,7 @@ function App() {
           onAddClassroomClick={handleAddClassroomClick}
           onHomePageClick={handleHomePageClick}
           onLoginClick={handleLoginClick}
-          onSignupClick={handleSignupClick} // Adicionado evento de clique para cadastro
+          onSignupClick={handleSignupClick}
         />
 
         <Routes>
@@ -42,6 +41,8 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/" element={<HomePage />} />
+          <Route path="/aluno" element={<AlunoHomePage />} />
+          <Route path="/professor" element={<ProfessorHomePage />} />
         </Routes>
       </div>
     </Router>
