@@ -6,11 +6,11 @@ const ClassroomForm = ({ onClassroomCreate }) => {
   const [subject, setSubject] = useState('');
   const [teacher, setTeacher] = useState('');
   const [students, setStudents] = useState('');
-//AINDA NÃO FIZ MENSAGEM DE ERRO, REPETINDO AINDA NÃO FIZ MENSAGEM DERRO
+
   const handleCreateClassroom = async () => {
     try {
       // Fazer uma chamada à API para criar uma nova sala de aula
-      const response = await fetch('sua-api-endpoint/classrooms', {
+      const response = await fetch('http://localhost:5000/course/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

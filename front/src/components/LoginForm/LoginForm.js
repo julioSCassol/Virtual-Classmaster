@@ -67,16 +67,25 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
         // });
         
         if (userResponse.ok) {
-          const { user } = await userResponse.json();
+          const { data } = await userResponse.json();
+
+          const [userId, username, email, isTeacher] = data;
+        
+          console.log('User ID:', userId);
+          console.log('Username:', username);
+          console.log('Email:', email);
+          console.log('Is Teacher:', isTeacher);
+        
+          // console.log(user.data);
 
           // Verifique o userType e redirecione com base nisso
-          if (user && user.is_teacher) {
-            navigate('/professor-home');
-          } else {
-            navigate('/aluno-home');
-          }
+           if (isTeacher) {
+             navigate('/professor-home');
+           } else {
+             navigate('/aluno-home');
+           }
 
-          onLoginSuccess(user.name);
+          // onLoginSuccess(user.name);
         } else {
           setError('Erro ao obter informações do usuário.');
         }

@@ -41,8 +41,8 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/" element={<HomePage />} />
-          <Route path="/aluno" element={<AlunoHomePage />} />
-          <Route path="/professor" element={<ProfessorHomePage />} />
+          <Route path="/aluno-home" element={<AlunoHomePage />} />
+          <Route path="/professor-home" element={<ProfessorHomePage />} />
         </Routes>
       </div>
     </Router>
