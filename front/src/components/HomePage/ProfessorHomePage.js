@@ -5,17 +5,17 @@ import { useAuth } from '../../AuthContext';
 const ProfessorHomePage = () => {
   const { user } = useAuth();
   const { username, email: userEmail } = user;
-  console.log(user)
 
   const [userClassrooms, setUserClassrooms] = useState([]);
 
   useEffect(() => {
     const fetchUserClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/course/searchbyteacher?teacher=${userEmail}`);
+        const response = await fetch(`http://localhost:5000/course/searchbyteacher?teachers=${userEmail}`);
         if (response.ok) {
           const data = await response.json();
-          setUserClassrooms(data);
+          console.log(data.data)
+          setUserClassrooms(data.data); // Access the array of classrooms in the response
         } else {
           console.error('Erro ao obter salas de aula do professor');
         }
@@ -37,12 +37,17 @@ const ProfessorHomePage = () => {
 
       <h1>Bem-vindo, Professor {username}!</h1>
       <h3>Minhas Salas de Aula</h3>
-      {userClassrooms.length === 0 ? (
+      {Array.isArray(userClassrooms) && userClassrooms.length === 0 ? (
         <p>Você não está cadastrado em nenhuma sala de aula ainda.</p>
       ) : (
         <ul>
           {userClassrooms.map((classroom) => (
-            <li key={classroom.id}>{classroom.name}</li>
+            <li key={classroom.id}>
+              <strong>{classroom.name}</strong>
+              <p>Criada em: {new Date(classroom.created_at).toLocaleDateString()}</p>
+              <p>Matérias: {classroom.subjects.join(', ')}</p>
+              <p>Estudantes: {classroom.students.join(', ')}</p>
+            </li>
           ))}
         </ul>
       )}
