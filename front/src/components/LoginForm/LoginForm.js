@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
+let userId, username, email, isTeacher;
+
 const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -69,7 +71,7 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
         if (userResponse.ok) {
           const { data } = await userResponse.json();
 
-          const [userId, username, email, isTeacher] = data;
+          [userId, username, email, isTeacher] = data;
         
           console.log('User ID:', userId);
           console.log('Username:', username);
@@ -139,3 +141,5 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
 };
 
 export default LoginForm;
+
+export {userId, username, email, isTeacher};

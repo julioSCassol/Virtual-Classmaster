@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import {userId, username, email, isTeacher} from '../LoginForm/LoginForm';
+
+console.log(userId, username, email, isTeacher);
+
 //NÃO APARECE O NOME!!!!!!!!
 const ProfessorHomePage = ({ userEmail }) => {
   const [userClassrooms, setUserClassrooms] = useState([]);
@@ -7,7 +11,7 @@ const ProfessorHomePage = ({ userEmail }) => {
   useEffect(() => {
     const fetchUserClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/course/searchbyteacher?email=${userEmail}`);
+        const response = await fetch(`http://localhost:5000/course/searchbyteacher?email=${email}`);
         if (response.ok) {
           const data = await response.json();
           setUserClassrooms(data);
