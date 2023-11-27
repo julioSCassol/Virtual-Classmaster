@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
+import './HomePage.css';
 
 const ProfessorHomePage = () => {
   const { user } = useAuth();
@@ -42,13 +43,15 @@ const ProfessorHomePage = () => {
       ) : (
         <ul>
           {userClassrooms.map((classroom) => (
-            <li key={classroom.id}>
-              <strong>{classroom.name}</strong>
+      <li key={classroom.id}>
+        <div className="classroom-info">
+            <strong>{classroom.name}</strong>
               <p>Criada em: {new Date(classroom.created_at).toLocaleDateString()}</p>
               <p>Matérias: {classroom.subjects.join(', ')}</p>
               <p>Estudantes: {classroom.students.join(', ')}</p>
-            </li>
-          ))}
+       </div>
+      </li>
+))}
         </ul>
       )}
     </div>

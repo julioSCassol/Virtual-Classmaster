@@ -14,7 +14,13 @@ h1 {
   text-align: center; /* Centralizar o texto dentro do h1 */
 }
 
+.header-buttons {
+  display: flex;
+  align-items: center;
+}
+
 button {
+  margin-right: 10px; /* Adiciona margem à direita para separar os botões */
   background-color: #4caf50;
   color: white;
   padding: 8px 12px;

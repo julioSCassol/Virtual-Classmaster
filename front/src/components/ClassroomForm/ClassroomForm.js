@@ -8,7 +8,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
 
   const [className, setClassName] = useState('');
   const [subject, setSubject] = useState('');
-  const [students, setStudents] = useState('');
+  const [students, setStudents] = useState([]);
 
   const handleCreateClassroom = async () => {
     try {
@@ -82,8 +82,8 @@ const ClassroomForm = ({ onClassroomCreate }) => {
         <br />
         <input
           type="text"
-          value={students}
-          onChange={(e) => setStudents(e.target.value)}
+          value={students.join(',')} 
+          onChange={(e) => setStudents(e.target.value.split(','))}
         />
       </label>
 

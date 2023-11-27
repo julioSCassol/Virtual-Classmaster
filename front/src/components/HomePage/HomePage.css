@@ -14,15 +14,37 @@
     padding: 20px;
   }
   
-  .classrooms {
+  ul {
     display: flex;
-    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    justify-content: space-between; /* ou space-around, dependendo do espaço desejado */
+  }
+
+  .classroom-info {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    
+  
+    &:hover {
+      transform: scale(1.05);
+    }
   }
   
-  .classroom {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 10px;
+  .classroom-info p {
+    margin: 8px 0;
   }
+
+  .classroom-info strong {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+  
   
