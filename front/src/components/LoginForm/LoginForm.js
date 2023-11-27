@@ -72,12 +72,10 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
           const { data } = await userResponse.json();
 
           [userId, username, email, isTeacher] = data;
-        
           console.log('User ID:', userId);
           console.log('Username:', username);
           console.log('Email:', email);
           console.log('Is Teacher:', isTeacher);
-        
           // console.log(user.data);
 
           // Verifique o userType e redirecione com base nisso

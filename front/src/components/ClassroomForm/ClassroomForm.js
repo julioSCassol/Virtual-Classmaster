@@ -1,7 +1,8 @@
 // src/components/ClassroomForm/ClassroomForm.js
 import React, { useState } from 'react';
+import './ClassroomForm.css';
 
-const ClassroomForm = ({ onClassroomCreate }) => {
+const ClassroomForm = ({ onClassroomCreate, userId }) => {
   const [className, setClassName] = useState('');
   const [subject, setSubject] = useState('');
   const [teacher, setTeacher] = useState('');
@@ -15,7 +16,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: className, subject, teacher, students }),
+        body: JSON.stringify({ name: className, subject, teacher: userId, students }),
       });
 
       if (response.ok) {
@@ -35,8 +36,9 @@ const ClassroomForm = ({ onClassroomCreate }) => {
   };
 
   return (
-    <div>
+    <div className="total">
       <h2>Criar Nova Sala de Aula</h2>
+      <p>Professor Vinculado: {userId}</p>
       <label>
         Nome da Sala:
         <br />
@@ -54,16 +56,6 @@ const ClassroomForm = ({ onClassroomCreate }) => {
           type="text"
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
-        />
-      </label>
-      
-      <label>
-        Professor Responsável:
-        <br />
-        <input
-          type="text"
-          value={teacher}
-          onChange={(e) => setTeacher(e.target.value)}
         />
       </label>
       
