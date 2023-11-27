@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import {userId, username, email, isTeacher} from '../LoginForm/LoginForm';
+import { useAuth } from '../../AuthContext';
 
-console.log(userId, username, email, isTeacher);
-//NÃO APARECE O NOME!!!!!!!!
-const AlunoHomePage = ({ userEmail }) => {
+const AlunoHomePage = () => {
+  const { user } = useAuth();
+  const { username, email: userEmail } = user;
+  console.log(user);
+
   const [userClassrooms, setUserClassrooms] = useState([]);
 
   useEffect(() => {
     const fetchUserClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/course/searchbystudent?email=${userEmail}`);
+        const response = await fetch(`http://localhost:5000/course/searchbystudent?students=${userEmail}`);
         if (response.ok) {
           const data = await response.json();
           setUserClassrooms(data);

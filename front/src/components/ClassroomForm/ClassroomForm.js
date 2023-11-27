@@ -1,22 +1,28 @@
-// src/components/ClassroomForm/ClassroomForm.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../../AuthContext';
 import './ClassroomForm.css';
 
-const ClassroomForm = ({ onClassroomCreate, userId }) => {
+const ClassroomForm = ({ onClassroomCreate }) => {
+  const { user } = useAuth();
+  const { email: userEmail } = user;
+
   const [className, setClassName] = useState('');
   const [subject, setSubject] = useState('');
-  const [teacher, setTeacher] = useState('');
   const [students, setStudents] = useState('');
 
   const handleCreateClassroom = async () => {
     try {
-      // Fazer uma chamada à API para criar uma nova sala de aula
       const response = await fetch('http://localhost:5000/course/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: className, subject, teacher: userId, students }),
+        body: JSON.stringify({
+          name: className,
+          subjects: subject,
+          teachers: [userEmail],  // Inclua automaticamente o usuário autenticado como professor
+          students: students,
+        }),
       });
 
       if (response.ok) {
@@ -25,10 +31,21 @@ const ClassroomForm = ({ onClassroomCreate, userId }) => {
         // Limpa os campos após a criação da sala de aula
         setClassName('');
         setSubject('');
-        setTeacher('');
         setStudents('');
       } else {
-        console.error('Erro ao criar sala de aula');
+        let errorMessage = 'Erro ao criar sala de aula';
+  
+        try {
+          // Tenta obter detalhes do erro do servidor (se a resposta for JSON)
+          const result = await response.json();
+          if (result && result.message) {
+            errorMessage = `Erro ao criar sala de aula: ${result.message}`;
+          }
+        } catch (jsonError) {
+          console.error('Erro ao analisar resposta JSON do servidor:', jsonError);
+        }
+  
+        console.error(errorMessage);
       }
     } catch (error) {
       console.error('Erro ao conectar com a API', error);
@@ -38,7 +55,7 @@ const ClassroomForm = ({ onClassroomCreate, userId }) => {
   return (
     <div className="total">
       <h2>Criar Nova Sala de Aula</h2>
-      <p>Professor Vinculado: {userId}</p>
+      {/* Remova a entrada de teachers e ajuste conforme necessário */}
       <label>
         Nome da Sala:
         <br />
@@ -48,7 +65,7 @@ const ClassroomForm = ({ onClassroomCreate, userId }) => {
           onChange={(e) => setClassName(e.target.value)}
         />
       </label>
-      
+
       <label>
         Matéria:
         <br />
@@ -58,7 +75,8 @@ const ClassroomForm = ({ onClassroomCreate, userId }) => {
           onChange={(e) => setSubject(e.target.value)}
         />
       </label>
-      
+
+      {/* Remova a entrada de teachers e ajuste conforme necessário */}
       <label>
         Estudantes Vinculados:
         <br />
@@ -68,7 +86,7 @@ const ClassroomForm = ({ onClassroomCreate, userId }) => {
           onChange={(e) => setStudents(e.target.value)}
         />
       </label>
-      
+
       <button onClick={handleCreateClassroom}>Criar Sala de Aula</button>
     </div>
   );

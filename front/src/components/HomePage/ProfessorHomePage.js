@@ -12,7 +12,7 @@ const ProfessorHomePage = () => {
   useEffect(() => {
     const fetchUserClassrooms = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/course/searchbyteacher?email=${userEmail}`);
+        const response = await fetch(`http://localhost:5000/course/searchbyteacher?teacher=${userEmail}`);
         if (response.ok) {
           const data = await response.json();
           setUserClassrooms(data);
