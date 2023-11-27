@@ -3,10 +3,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
+import { useAuth } from '../../AuthContext';
 
 let userId, username, email, isTeacher;
 
 const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
+  const { login } = useAuth(); // Use at the beginning
+  const auth = useAuth(); // Call useAuth at the beginning of the component
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -72,10 +75,13 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
           const { data } = await userResponse.json();
 
           [userId, username, email, isTeacher] = data;
+        
           console.log('User ID:', userId);
           console.log('Username:', username);
           console.log('Email:', email);
           console.log('Is Teacher:', isTeacher);
+          login({userId, username, email, isTeacher})
+        
           // console.log(user.data);
 
           // Verifique o userType e redirecione com base nisso

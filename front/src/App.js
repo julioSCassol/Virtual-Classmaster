@@ -8,6 +8,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignupForm/SignupForm';
 import AlunoHomePage from './components/HomePage/AlunoHomePage';
 import ProfessorHomePage from './components/HomePage/ProfessorHomePage';
+import { AuthProvider } from './AuthContext'; 
 
 function App() {
   const handleAddClassroomClick = () => {
@@ -27,14 +28,15 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className="App">
-        <Header
-          onAddClassroomClick={handleAddClassroomClick}
-          onHomePageClick={handleHomePageClick}
-          onLoginClick={handleLoginClick}
-          onSignupClick={handleSignupClick}
-        />
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Header
+            onAddClassroomClick={handleAddClassroomClick}
+            onHomePageClick={handleHomePageClick}
+            onLoginClick={handleLoginClick}
+            onSignupClick={handleSignupClick}
+          />
 
         <Routes>
           <Route path="/create-classroom" element={<CreateClassroomPage />} />
@@ -44,8 +46,10 @@ function App() {
           <Route path="/aluno-home" element={<AlunoHomePage />} />
           <Route path="/professor-home" element={<ProfessorHomePage />} />
         </Routes>
-      </div>
-    </Router>
+        </div>
+      </Router>
+    </AuthProvider>
+
   );
 }
 
