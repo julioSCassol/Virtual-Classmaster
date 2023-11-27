@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './LoginForm.css';
 
+let userId, username, email, isTeacher; // Declare variables at the top level
+
 const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email: '',
@@ -68,14 +70,16 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
         
         if (userResponse.ok) {
           const { data } = await userResponse.json();
-
-          const [userId, username, email, isTeacher] = data;
-        
+          
+          userId = data[0];
+          username = data[1];
+          email = data[2];
+          isTeacher = data[3];
+    
           console.log('User ID:', userId);
           console.log('Username:', username);
           console.log('Email:', email);
           console.log('Is Teacher:', isTeacher);
-        
           // console.log(user.data);
 
           // Verifique o userType e redirecione com base nisso

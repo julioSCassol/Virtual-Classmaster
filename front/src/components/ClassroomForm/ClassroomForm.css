@@ -1,6 +1,6 @@
 /* src/components/ClassroomForm/ClassroomForm.css */
 .form-container {
-  max-width: 400px;
+  max-width: 200px;
   margin: 0 auto;
   background-color: #f8f8f8;
   padding: 20px;
@@ -19,7 +19,7 @@
 }
 
 .input {
-  width: 100%;
+  width: 50%;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
@@ -39,4 +39,10 @@
 
 .button:hover {
   background-color: #45a049;
+}
+
+.total {
+  justify-content: center;
+  width: 20%;
+  align-items: center;
 }
