@@ -1,8 +1,8 @@
 /* src/components/SignupForm.css */
 .form-container {
-    max-width: 200px; /* Aumente conforme necessário */
+    max-width: 300px; /* Aumente conforme necessário */
     margin: 0 auto;
-    padding: 40px; /* Ajuste o padding conforme necessário */
+    padding: 50px; /* Ajuste o padding conforme necessário */
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -46,17 +46,13 @@
   }
   
   select {
-    width: 15%;
+    width: 100%;
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 20px;
   }
-
-  /* src/components/SignupForm.css */
-
-/* src/components/SignupForm.css */
 
 .login-link {
   display: inline-block;
@@ -75,9 +71,6 @@
   background-color: #45a049;
 }
 
-
-  
-  /* Adicione estilos adicionais conforme necessário */
 .Tentativa {
   display: flex;
   justify-content: center;
