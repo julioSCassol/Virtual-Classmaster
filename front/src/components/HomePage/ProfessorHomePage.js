@@ -32,7 +32,7 @@ const ProfessorHomePage = ({ userEmail }) => {
         <button style={{ position: 'absolute', left: '10px', top: '10px' }}>Criar Sala de Aula</button>
       </Link>
 
-      <h1>Bem-vindo, Professor {userEmail}!</h1>
+      <h1>Bem-vindo, Professor {username}!</h1>
       <h3>Minhas Salas de Aula</h3>
       {userClassrooms.length === 0 ? (
         <p>Você não está cadastrado em nenhuma sala de aula ainda.</p>

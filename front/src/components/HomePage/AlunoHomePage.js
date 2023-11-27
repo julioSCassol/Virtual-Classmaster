@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import {userId, username, email, isTeacher} from '../LoginForm/LoginForm';
+
+console.log(userId, username, email, isTeacher);
 //NÃO APARECE O NOME!!!!!!!!
 const AlunoHomePage = ({ userEmail }) => {
   const [userClassrooms, setUserClassrooms] = useState([]);
@@ -24,7 +27,7 @@ const AlunoHomePage = ({ userEmail }) => {
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>
-      <h1>Bem-vindo, Aluno {userEmail}!</h1>
+      <h1>Bem-vindo, Aluno {username}!</h1>
       <h3>Minhas Salas de Aula</h3>
       {userClassrooms.length === 0 ? (
         <p>Você não está cadastrado em nenhuma sala de aula ainda.</p>
