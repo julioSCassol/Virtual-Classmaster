@@ -55,6 +55,12 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
         const qlc = await response.json(); //qlc
         const token = qlc.data
         console.log(token);
+
+        localStorage.setItem('token', token);
+        localStorage.setItem('userId', qlc.userId);
+        localStorage.setItem('username', qlc.username);
+        localStorage.setItem('email', qlc.email);
+        localStorage.setItem('isTeacher', qlc.isTeacher);
         setSuccess('Login bem-sucedido!');
 
         // Faça uma solicitação para validar o JWT e obter informações do usuário 

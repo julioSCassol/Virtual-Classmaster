@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
 import './HomePage.css';
 
 const AlunoHomePage = () => {
   const { user } = useAuth();
-  const { username, email: userEmail } = user;
+  const { username, email: userEmail } = user || {};
 
   const [userClassrooms, setUserClassrooms] = useState([]);
 
@@ -26,6 +25,8 @@ const AlunoHomePage = () => {
 
     fetchUserClassrooms();
   }, [userEmail]);
+
+  console.log('Logged Username:', username);
 
   return (
     <div style={{ textAlign: 'center', padding: '20px' }}>

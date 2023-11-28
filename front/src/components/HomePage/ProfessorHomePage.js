@@ -5,7 +5,9 @@ import './HomePage.css';
 
 const ProfessorHomePage = () => {
   const { user } = useAuth();
-  const { username, email: userEmail } = user;
+  
+  // Check if the user is null before destructuring properties
+  const { username, email: userEmail } = user || {};
 
   const [userClassrooms, setUserClassrooms] = useState([]);
 
@@ -16,7 +18,7 @@ const ProfessorHomePage = () => {
         if (response.ok) {
           const data = await response.json();
           console.log(data.data)
-          setUserClassrooms(data.data); // Access the array of classrooms in the response
+          setUserClassrooms(data.data);
         } else {
           console.error('Erro ao obter salas de aula do professor');
         }
@@ -36,23 +38,24 @@ const ProfessorHomePage = () => {
         <button style={{ position: 'absolute', left: '10px', top: '10px' }}>Criar Sala de Aula</button>
       </Link>
 
-      <h1>Bem-vindo, Professor {username}!</h1>
+      <h1>Bem-vindo, Professor {username || ''}!</h1>
       <h3>Minhas Salas de Aula</h3>
+
       {Array.isArray(userClassrooms) && userClassrooms.length === 0 ? (
         <p>Você não está cadastrado em nenhuma sala de aula ainda.</p>
       ) : (
-        <ul>
+        <div className="classrooms-container">
           {userClassrooms.map((classroom) => (
-      <li key={classroom.id}>
-        <div className="classroom-info">
-            <strong>{classroom.name}</strong>
-              <p>Criada em: {new Date(classroom.created_at).toLocaleDateString()}</p>
-              <p>Matérias: {classroom.subjects.join(', ')}</p>
-              <p>Estudantes: {classroom.students.join(', ')}</p>
-       </div>
-      </li>
-))}
-        </ul>
+            <div key={classroom.id} className="classroom-item">
+              <div className="classroom-info">
+                <strong>{classroom.name}</strong>
+                <p>Criada em: {new Date(classroom.created_at).toLocaleDateString()}</p>
+                <p>Matérias: {classroom.subjects.join(', ')}</p>
+                <p>Estudantes: {classroom.students.join(', ')}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       )}
     </div>
   );

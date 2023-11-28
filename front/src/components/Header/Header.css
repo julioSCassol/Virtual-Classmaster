@@ -2,25 +2,34 @@
 .header {
   background-color: #333;
   color: white;
-  padding: 10px;
+  padding: 17px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+  display: flex;
   align-items: center;
 }
 
 h1 {
   margin: 0;
-  flex-grow: 1; /* Para ocupar o espaço restante e centralizar o texto */
-  text-align: center; /* Centralizar o texto dentro do h1 */
+  cursor: pointer;
 }
-
+.button-login{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 .header-buttons {
   display: flex;
   align-items: center;
+  padding-right: 12px;
 }
 
 button {
-  margin-right: 10px; /* Adiciona margem à direita para separar os botões */
+  margin-right: 10px;
   background-color: #4caf50;
   color: white;
   padding: 8px 12px;

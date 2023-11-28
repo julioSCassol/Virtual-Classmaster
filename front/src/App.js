@@ -1,5 +1,5 @@
 // App.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import HomePage from './components/HomePage/HomePage';
@@ -11,6 +11,10 @@ import ProfessorHomePage from './components/HomePage/ProfessorHomePage';
 import { AuthProvider } from './AuthContext'; 
 
 function App() {
+  // useEffect(() => {
+  //   document.title = '';
+  // }, []);
+
   const handleAddClassroomClick = () => {
     window.location.href = '/create-classroom';
   };

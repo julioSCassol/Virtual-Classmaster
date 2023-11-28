@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = ({ onLoginClick }) => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const isTeacher = user ? user.isTeacher : false; // Verifique se user não é null antes de destruturar
   const location = useLocation();
 
@@ -25,11 +25,17 @@ const Header = ({ onLoginClick }) => {
 
   return (
     <div className="header">
-      <h1>Virtual Classmaster</h1>
-      <div className="header-buttons">
-        <button onClick={handleHomepageClick}>Ir para a HomePage</button>
-        <button onClick={onLoginClick}>Login</button>
+      <div className='name'>
+        <h1 onClick={handleHomepageClick}>Virtual Classmaster</h1>
       </div>
+      <div className="header-buttons">
+      {user ? (
+        <button className='button-login' onClick={logout}>Logout</button>
+
+        ) : (
+          <button className='button-login' onClick={onLoginClick}>Login</button>
+        )}
+        </div>
     </div>
   );
 };
