@@ -1,8 +1,7 @@
-// src/components/ClassroomPage.js
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../AuthContext';
-//import './ClassroomPage.css';
+import './ClassroomPage.css';
 
 const ClassroomPage = () => {
   const { user, logout } = useAuth();
@@ -10,6 +9,9 @@ const ClassroomPage = () => {
   const { id } = useParams();
 
   const [classroomData, setClassroomData] = useState(null);
+  const [postContent, setPostContent] = useState('');
+  const [indexedMaterial, setIndexedMaterial] = useState('');
+  const [subjectsPost, setSubjectsPost] = useState([]);
 
   useEffect(() => {
     const fetchClassroomData = async () => {
@@ -33,27 +35,21 @@ const ClassroomPage = () => {
 
     fetchClassroomData();
   }, [id]);
-  console.log(classroomData)
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
+  const handleContentChange = (event) => {
+    setPostContent(event.target.value);
   };
 
+  const handleIndexedMaterialChange = (event) => {
+    setIndexedMaterial(event.target.value);
+  };
 
+  const handleSubjectsChange = (event) => {
+    setSubjectsPost(event.target.value.split(',').map(subject => subject.trim()));
+  };
 
-
-
-
-
-
-
-
-
-  // Coloca isso no PostForm eu acho
   const handleCreatePost = async () => {
     try {
-      // Lógica para criar um post
       const response = await fetch('http://localhost:5000/course/post/create', {
         method: 'POST',
         headers: {
@@ -61,10 +57,10 @@ const ClassroomPage = () => {
           'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
-          content: 'Conteúdo do post',
-          indexed_material: 'Material indexado',
+          content: postContent,
+          indexed_material: indexedMaterial,
           course_id: id,
-          subjects_post: ['Assunto do post'],
+          subjects_post: subjectsPost,
         }),
       });
 
@@ -79,33 +75,49 @@ const ClassroomPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   if (!user) {
-    // Se o usuário não estiver autenticado, redirecione para a página de login
     navigate('/login');
     return null;
   }
 
   return (
     <div>
-      <h1>Detalhes da Sala de Aula</h1>
+      <div>
+        <h1>Detalhes da Sala de Aula</h1>
 
-      {classroomData ? (
-  <div>
-    {classroomData.data.map(post => (
-      <div key={post.id}>
-        <h2>Content: {post.content}</h2>
-        <p>Indexed Material: {post.indexed_material}</p>
-        <p>Subjects: {post.subjects_post.join(', ')}</p>
+        {classroomData ? (
+          <div className='centralizada'>
+            {classroomData.data.map(post => (
+              <div key={post.id} className='centralizada'>
+                <h2>{post.content}</h2>
+                <p>Material indexado: {post.indexed_material}</p>
+                <p>Matérias Relacionadas: {post.subjects_post.join(', ')}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p>Carregando...</p>
+        )}
+
+        <div className="post-block">
+          <h2>Criar Novo Post</h2>
+          <label>Conteúdo do Post:</label>
+          <input type="text" value={postContent} onChange={handleContentChange} />
+
+          <label>Material Indexado:</label>
+          <input type="text" value={indexedMaterial} onChange={handleIndexedMaterialChange} />
+
+          <label>Matérias do Post (separados por vírgula):</label>
+          <input type="text" value={subjectsPost.join(', ')} onChange={handleSubjectsChange} />
+
+          <button onClick={handleCreatePost}>Criar Post</button>
+        </div>
       </div>
-    ))}
-  </div>
-) : (
-  <p>Carregando...</p>
-)}
-
-
-
-      <button onClick={handleCreatePost}>Criar Post</button>
     </div>
   );
 };

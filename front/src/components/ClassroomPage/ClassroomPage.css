@@ -1,0 +1,36 @@
+.post-block {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 25%;
+    float: left;
+    clear: both; 
+    margin-right: 50px;
+    margin-left: 20px;
+  }
+
+  .post-block input {
+    width: 80%; /* Ajuste o valor conforme necessário para diminuir o tamanho do text box */
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  h2 {
+    text-align: center;
+  }
+
+  p {
+    text-align: justify;
+  }
+
+  .centralizada {
+    border: 5px solid #ccc;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    height: 50vh; /* Isso centraliza verticalmente na página inteira */
+    margin-right: 50px;
+    width: 600px;
+  }
