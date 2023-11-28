@@ -47,12 +47,14 @@ const ProfessorHomePage = () => {
         <div className="classrooms-container">
           {userClassrooms.map((classroom) => (
             <div key={classroom.id} className="classroom-item">
-              <div className="classroom-info">
-                <strong>{classroom.name}</strong>
-                <p>Criada em: {new Date(classroom.created_at).toLocaleDateString()}</p>
-                <p>Matérias: {classroom.subjects.join(', ')}</p>
-                <p>Estudantes: {classroom.students.join(', ')}</p>
-              </div>
+              <Link to={`/classroom/${classroom.id}`}>
+                <div className="classroom-info">
+                  <strong>{classroom.name}</strong>
+                  <p>Criada em: {new Date(classroom.created_at).toLocaleDateString()}</p>
+                  <p>Matérias: {classroom.subjects.join(', ')}</p>
+                  <p>Estudantes: {classroom.students.join(', ')}</p>
+                </div>
+              </Link>
             </div>
           ))}
         </div>

@@ -8,6 +8,7 @@ import LoginForm from './components/LoginForm/LoginForm';
 import SignupForm from './components/SignupForm/SignupForm';
 import AlunoHomePage from './components/HomePage/AlunoHomePage';
 import ProfessorHomePage from './components/HomePage/ProfessorHomePage';
+import ClassroomPage from './components/ClassroomPage/ClassroomPage';
 import { AuthProvider } from './AuthContext'; 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/aluno-home" element={<AlunoHomePage />} />
           <Route path="/professor-home" element={<ProfessorHomePage />} />
+          <Route path="/classroom/:id" element={<ClassroomPage />} />
         </Routes>
         </div>
       </Router>
