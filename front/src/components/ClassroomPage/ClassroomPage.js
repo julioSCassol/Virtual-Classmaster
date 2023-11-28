@@ -14,7 +14,7 @@ const ClassroomPage = () => {
   useEffect(() => {
     const fetchClassroomData = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/courses/${id}`, {
+        const response = await fetch(`http://localhost:5000/course/post/getpostsbycourse?course_id=${id}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
           },
@@ -33,12 +33,24 @@ const ClassroomPage = () => {
 
     fetchClassroomData();
   }, [id]);
+  console.log(classroomData)
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
 
+
+
+
+
+
+
+
+
+
+
+  // Coloca isso no PostForm eu acho
   const handleCreatePost = async () => {
     try {
       // Lógica para criar um post
@@ -78,15 +90,20 @@ const ClassroomPage = () => {
       <h1>Detalhes da Sala de Aula</h1>
 
       {classroomData ? (
-        <div>
-          <h2>Nome: {classroomData.name}</h2>
-          <p>Criada em: {new Date(classroomData.created_at).toLocaleDateString()}</p>
-          <p>Matérias: {classroomData.subjects.join(', ')}</p>
-          <p>Estudantes: {classroomData.students.join(', ')}</p>
-        </div>
-      ) : (
-        <p>Carregando...</p>
-      )}
+  <div>
+    {classroomData.data.map(post => (
+      <div key={post.id}>
+        <h2>Content: {post.content}</h2>
+        <p>Indexed Material: {post.indexed_material}</p>
+        <p>Subjects: {post.subjects_post.join(', ')}</p>
+      </div>
+    ))}
+  </div>
+) : (
+  <p>Carregando...</p>
+)}
+
+
 
       <button onClick={handleCreatePost}>Criar Post</button>
     </div>
