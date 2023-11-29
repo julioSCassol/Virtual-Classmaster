@@ -103,7 +103,7 @@ const ClassroomPage = () => {
             ))}
           </div>
         ) : (
-          <p>Carregando...</p>
+          <p> Nenhum post encontrado nesta sala de aula!</p>
         )}
 
         {isTeacher && (
@@ -112,11 +112,11 @@ const ClassroomPage = () => {
             <label>Conteúdo do Post:</label>
             <input type="text" value={postContent} onChange={handleContentChange} />
 
-            <label>Material Indexado:</label>
-            <input type="text" value={indexedMaterial} onChange={handleIndexedMaterialChange} />
-
             <label>Matérias do Post (separados por vírgula):</label>
             <input type="text" value={subjectsPost.join(', ')} onChange={handleSubjectsChange} />
+
+            <label>Material Indexado:</label>
+            <input type="text" value={indexedMaterial} onChange={handleIndexedMaterialChange} />
 
             <button onClick={handleCreatePost}>Criar Post</button>
           </div>
