@@ -66,7 +66,7 @@ const ClassroomPage = () => {
 
       if (response.ok) {
         console.log('Post criado com sucesso!');
-        // Adicione lógica adicional após a criação do post, se necessário
+        
       } else {
         console.error('Erro ao criar o post');
       }
@@ -74,6 +74,8 @@ const ClassroomPage = () => {
       console.error('Erro ao conectar com a API', error);
     }
   };
+
+  const isTeacher = user?.isTeacher;
 
   const handleLogout = () => {
     logout();
@@ -95,8 +97,8 @@ const ClassroomPage = () => {
             {classroomData.data.map(post => (
               <div key={post.id} className='centralizada'>
                 <h2>{post.content}</h2>
-                <p>Material indexado: {post.indexed_material}</p>
                 <p>Matérias Relacionadas: {post.subjects_post.join(', ')}</p>
+                <p>Material indexado: {post.indexed_material}</p>
               </div>
             ))}
           </div>
@@ -104,19 +106,21 @@ const ClassroomPage = () => {
           <p>Carregando...</p>
         )}
 
-        <div className="post-block">
-          <h2>Criar Novo Post</h2>
-          <label>Conteúdo do Post:</label>
-          <input type="text" value={postContent} onChange={handleContentChange} />
+        {isTeacher && (
+          <div className="post-block">
+            <h2>Criar Novo Post</h2>
+            <label>Conteúdo do Post:</label>
+            <input type="text" value={postContent} onChange={handleContentChange} />
 
-          <label>Material Indexado:</label>
-          <input type="text" value={indexedMaterial} onChange={handleIndexedMaterialChange} />
+            <label>Material Indexado:</label>
+            <input type="text" value={indexedMaterial} onChange={handleIndexedMaterialChange} />
 
-          <label>Matérias do Post (separados por vírgula):</label>
-          <input type="text" value={subjectsPost.join(', ')} onChange={handleSubjectsChange} />
+            <label>Matérias do Post (separados por vírgula):</label>
+            <input type="text" value={subjectsPost.join(', ')} onChange={handleSubjectsChange} />
 
-          <button onClick={handleCreatePost}>Criar Post</button>
-        </div>
+            <button onClick={handleCreatePost}>Criar Post</button>
+          </div>
+        )}
       </div>
     </div>
   );

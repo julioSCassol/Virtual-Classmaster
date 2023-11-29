@@ -20,7 +20,6 @@ const HomePage = () => {
             <p>Professor: Maria Oliveira</p>
             <button>Entrar</button>
           </div>
-          {/* Adicione mais salas conforme necessário */}
         </section>
       </main>
     </div>

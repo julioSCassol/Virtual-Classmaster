@@ -7,7 +7,7 @@ const SignupForm = () => {
     name: '',
     email: '',
     password: '',
-    is_teacher: false, // Adicionando a propriedade is_teacher como um booleano
+    is_teacher: false,
   });
 
   const [successMessage, setSuccessMessage] = useState('');
@@ -16,7 +16,7 @@ const SignupForm = () => {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    // Se o tipo for uma caixa de seleção (checkbox), use o valor booleano
+ 
     const newValue = type === 'checkbox' ? checked : value;
 
     setFormData({
@@ -38,14 +38,12 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Verificar se pelo menos o e-mail está presente
     if (!formData.email) {
       setError('Informe um e-mail válido.');
       return;
     }
 
     try {
-      // Enviar dados para a API
       const response = await fetch('http://localhost:5000/user/create', {
         method: 'POST',
         headers: {
@@ -62,14 +60,11 @@ const SignupForm = () => {
       const result = await response.json();
 
       if (response.ok) {
-        // Se a operação for bem-sucedida:
         setSuccess('Cadastro realizado com sucesso!');
       } else {
-        // Se ocorrer um erro:
         setError(`Erro ao cadastrar usuário. ${result.message}`);
       }
     } catch (error) {
-      // Se ocorrer um erro de rede:
       setError('Erro ao conectar com a API. Verifique sua conexão com a internet.');
     }
   };
@@ -99,7 +94,7 @@ const SignupForm = () => {
       </label>
 
       <label>
-        Você é um:
+        Você é um professor? Se sim, clique no botão abaixo!
         <br />
         <input
           type="checkbox"
@@ -107,12 +102,11 @@ const SignupForm = () => {
           checked={formData.is_teacher}
           onChange={handleChange}
         />
-        Professor
       </label>
 
-      <button type="submit">Cadastrar</button>
+      <button type="submit">Cadastrar-se</button>
 
-      <p>
+      <p class="alinha">
         Já possui conta?{' '}
         <Link to="/login" className="login-link">
           Clique aqui para fazer login

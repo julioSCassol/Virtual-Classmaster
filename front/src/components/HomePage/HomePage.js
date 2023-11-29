@@ -5,7 +5,6 @@ const HomePage = () => {
   const [userClassrooms, setUserClassrooms] = useState([]);
 
   useEffect(() => {
-    // Lógica para obter as salas de aula do usuário (substitua com sua lógica)
     const fetchUserClassrooms = async () => {
       try {
         const response = await fetch('sua-api-endpoint/user-classrooms');

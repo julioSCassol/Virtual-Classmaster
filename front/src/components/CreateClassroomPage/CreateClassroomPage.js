@@ -6,7 +6,6 @@ const CreateClassroomPage = () => {
   return (
     <div>
       <ClassroomForm />
-      {/* Adicione outros elementos conforme necessário */}
     </div>
   );
 };

@@ -63,7 +63,6 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
         localStorage.setItem('isTeacher', qlc.isTeacher);
         setSuccess('Login bem-sucedido!');
 
-        // Faça uma solicitação para validar o JWT e obter informações do usuário 
         const userResponse = await fetch('http://localhost:5000/user/validateJWT', {
           method: 'GET',
           headers: {'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`, },            
@@ -89,15 +88,13 @@ const LoginForm = ({ onSignupClick, onLoginSuccess }) => {
           login({userId, username, email, isTeacher})
         
           // console.log(user.data);
-
-          // Verifique o userType e redirecione com base nisso
            if (isTeacher) {
              navigate('/professor-home');
            } else {
              navigate('/aluno-home');
            }
 
-          // onLoginSuccess(user.name);
+          
         } else {
           setError('Erro ao obter informações do usuário.');
         }

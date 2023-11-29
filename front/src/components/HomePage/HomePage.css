@@ -18,7 +18,7 @@ ul {
   display: flex;
   list-style: none;
   padding: 0;
-  justify-content: space-between; /* or space-around, depending on the desired space */
+  justify-content: space-between; 
 }
 
 .classroom-info {
@@ -47,15 +47,15 @@ ul {
 }
 
 .classrooms-container {
-  margin: auto; /* Center the container horizontally */
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
 
 .classroom-item {
-  flex-basis: calc(20% - 2px); /* Calculate the flex-basis with 10px gap */
-  box-sizing: border-box; /* Include padding and border in the calculation */
+  flex-basis: calc(20% - 2px); 
+  box-sizing: border-box; 
   padding: 10px;
   margin-bottom: 20px;
 }

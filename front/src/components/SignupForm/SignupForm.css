@@ -1,8 +1,8 @@
 /* src/components/SignupForm.css */
 .form-container {
-    max-width: 300px; /* Aumente conforme necessário */
+    max-width: 300px; 
     margin: 0 auto;
-    padding: 50px; /* Ajuste o padding conforme necessário */
+    padding: 50px;
     background-color: #ffffff;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -39,6 +39,7 @@
     transition: background-color 0.3s ease-in-out;
     justify-content: center;
     display: flex;
+    margin: 0 auto;
   }
   
   button:hover {
@@ -74,8 +75,14 @@
 .Tentativa {
   display: flex;
   justify-content: center;
-  width: 100%;
-  display: flex;
+  width: 350px;
   align-items: center;
+  margin: 0 auto;
+  padding: 10px; 
 }
-  
+
+.alinha {
+  margin-top: 50px;
+  text-align: center;
+}
+

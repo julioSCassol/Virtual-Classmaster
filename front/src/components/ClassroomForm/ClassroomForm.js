@@ -20,15 +20,14 @@ const ClassroomForm = ({ onClassroomCreate }) => {
         body: JSON.stringify({
           name: className,
           subjects: subject,
-          teachers: [userEmail],  // Inclua automaticamente o usuário autenticado como professor
+          teachers: [userEmail],  
           students: students,
         }),
       });
 
       if (response.ok) {
-        // Chama a função passada por prop para atualizar o estado do pai
         onClassroomCreate();
-        // Limpa os campos após a criação da sala de aula
+
         setClassName('');
         setSubject('');
         setStudents('');
@@ -36,7 +35,6 @@ const ClassroomForm = ({ onClassroomCreate }) => {
         let errorMessage = 'Erro ao criar sala de aula';
   
         try {
-          // Tenta obter detalhes do erro do servidor (se a resposta for JSON)
           const result = await response.json();
           if (result && result.message) {
             errorMessage = `Erro ao criar sala de aula: ${result.message}`;
@@ -55,7 +53,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
   return (
     <div className="total">
       <h2>Criar Nova Sala de Aula</h2>
-      {/* Remova a entrada de teachers e ajuste conforme necessário */}
+      
       <label>
         Nome da Sala:
         <br />
@@ -76,7 +74,6 @@ const ClassroomForm = ({ onClassroomCreate }) => {
         />
       </label>
 
-      {/* Remova a entrada de teachers e ajuste conforme necessário */}
       <label>
         Estudantes Vinculados:
         <br />

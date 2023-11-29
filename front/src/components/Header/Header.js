@@ -6,7 +6,7 @@ import './Header.css';
 
 const Header = ({ onLoginClick }) => {
   const { user, logout } = useAuth();
-  const isTeacher = user ? user.isTeacher : false; // Verifique se user não é null antes de destruturar
+  const isTeacher = user ? user.isTeacher : false;
   const location = useLocation();
 
   const homepagePath = isTeacher ? '/professor-home' : '/aluno-home';

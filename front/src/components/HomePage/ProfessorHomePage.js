@@ -6,7 +6,6 @@ import './HomePage.css';
 const ProfessorHomePage = () => {
   const { user } = useAuth();
   
-  // Check if the user is null before destructuring properties
   const { username, email: userEmail } = user || {};
 
   const [userClassrooms, setUserClassrooms] = useState([]);

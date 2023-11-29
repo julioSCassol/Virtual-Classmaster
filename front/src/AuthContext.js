@@ -6,7 +6,6 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
-  // Check for an existing token in localStorage during initialization
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -17,7 +16,6 @@ export const AuthProvider = ({ children }) => {
   const login = (userData) => {
     setUser(userData);
 
-    // Save user information in localStorage
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
