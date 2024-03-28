@@ -1,17 +1,14 @@
-version: '3'
-
 services:
   front:
     build: ./front
     ports:
-      - "3000:3000"
+      - "3006:3006"
     volumes:
       - ./front:/usr/app
     depends_on:
       - db
-    networks:
-      - my-network
-
+    network_mode: "host"
+      
   api:
     build: ./api
     command: yarn dev
@@ -21,9 +18,8 @@ services:
       - ./api:/usr/app
     depends_on:
       - db
-    networks:
-      - my-network
-
+    network_mode: "host"
+      
   db:
     image: postgres:latest
     container_name: postgres-db
@@ -31,10 +27,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
       POSTGRES_DB: default
+    volumes:
+      - ./database/tables.sql:/docker-entrypoint-initdb.d/tables.sql
+
     ports:
       - "5432:5432"
-    networks:
-      - my-network
-
-networks:
-  my-network:
+    network_mode: "host"

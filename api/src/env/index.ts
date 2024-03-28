@@ -12,7 +12,7 @@ const envSchema = z.object({
   DATABASE_USER: z.string(),
   DATABASE_NAME: z.string(),
   DATABASE_HOST: z.string(),
-  PORT: z.coerce.number().default(3000),
+  PORT: z.coerce.number().default(3006),
   JWTTOKEN: z.string(),
   ENCRYPTKEY: z.string(),        
 })

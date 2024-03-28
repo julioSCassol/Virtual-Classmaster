@@ -5,7 +5,7 @@ import { Client, PoolClient } from 'pg';
 // Define your PostgreSQL database connection configuration
 const dbConfig = {
   user: 'postgres',
-  host: '192.168.0.192',
+  host: 'localhost',
   database: 'default',
   password: '123',
   port: 5432, 

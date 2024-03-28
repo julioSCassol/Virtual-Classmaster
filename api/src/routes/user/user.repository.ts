@@ -11,6 +11,7 @@ export class UserRepository {
 
 async createUser(user: insertAccountDatabaseType, resultValidation: ResultValidation) {
   try {
+    console.log(user)
     const result = await this.databaseConnector.server('users').insert(user).returning('*');
     resultValidation.setResult({ data: result[0] });
   } catch (error) {

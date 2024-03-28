@@ -26,6 +26,7 @@ const ClassroomForm = ({ onClassroomCreate }) => {
       });
 
       if (response.ok) {
+        alert("Sala de aula criada com sucesso!")
         onClassroomCreate();
 
         setClassName('');
