@@ -1,75 +1,83 @@
 /* src/components/SignupForm.css */
 .form-container {
-    max-width: 300px; 
-    margin: 0 auto;
-    padding: 50px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .input {
-    width: 25%;
-    padding: 12px;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 20px;
-  }
-  
-  button {
-    background-color: #4caf50;
-    color: white;
-    padding: 14px 20px;
-    font-size: 18px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    justify-content: center;
-    display: flex;
-    margin: 0 auto;
-  }
-  
-  button:hover {
-    background-color: #45a049;
-  }
-  
-  select {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 20px;
-  }
+  max-width: 300px; 
+  margin: 0 auto;
+  padding: 50px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-.login-link {
-  display: inline-block;
-  padding: 10px 20px;
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.input {
+  width: 25%;
+  padding: 12px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+#teacher_box {
+  display: flex;
+  /* align-items: center; */
+  margin-bottom: 20px;
+}
+
+#teacher_box input{
+  width: 20px;
+}
+
+#teacher_box label {
+  margin-left: 5px; /* Adjust this value as needed */
+}
+
+
+button {
   background-color: #4caf50;
   color: white;
-  text-decoration: none;
-  font-size: 14px;
+  padding: 14px 20px;
+  font-size: 18px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease-in-out;
+  justify-content: center;
+  display: flex;
+  margin: 0 auto;
 }
 
-.login-link:hover {
+button:hover {
   background-color: #45a049;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.login-link {
+  display: inline-block;
+  padding: 5px 20px;
+  color: black;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .Tentativa {
@@ -82,7 +90,7 @@
 }
 
 .alinha {
-  margin-top: 50px;
+  margin-top: 20px;
   text-align: center;
 }
 

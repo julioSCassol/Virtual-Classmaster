@@ -10,6 +10,7 @@ async function courseRoutes(app:FastifyInstance) {
     app.get('/searchbysubject', { schema: { querystring: $ref('findCourseBySubjectBody') } }, courseController.findCourseBySubject);
     app.get('/searchbystudent', { schema: { querystring: $ref('findCourseByStudentBody') } }, courseController.findCourseByStudent);
     app.get('/searchbyteacher', { schema: { querystring: $ref('findCourseByTeacherBody') } }, courseController.findCourseByTeacher);
+    app.delete('/deletecourse', { schema: { querystring: $ref('deleteCourseById') } }, courseController.deleteCourse);
     
     app.register(postRoutes, { prefix: "/post" });
     

@@ -93,21 +93,20 @@ const SignupForm = () => {
         <input type="password" name="password" value={formData.password} onChange={handleChange} />
       </label>
 
-      <label>
-        Você é um professor? Se sim, clique no botão abaixo!
-        <br />
-        <input
-          type="checkbox"
-          name="is_teacher"
-          checked={formData.is_teacher}
-          onChange={handleChange}
-        />
-      </label>
+      <div id='teacher_box'>
+      <input
+        type="checkbox"
+        name="is_teacher"
+        checked={formData.is_teacher}
+        onChange={handleChange}
+      />
+      <label htmlFor="is_teacher">Professor</label>
+      </div>
 
-      <button type="submit">Cadastrar-se</button>
+    <button type="submit">Cadastrar-se</button>
 
       <p class="alinha">
-        Já possui conta?{' '}
+        Já possui conta?
         <Link to="/login" className="login-link">
           Clique aqui para fazer login
         </Link>

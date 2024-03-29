@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { ResultValidation } from "../utils/result-validation";
 import { CourseRepository } from "./course.repository";
-import { createCourseType, insertCourseDatabase, findCourseBySubjectType } from "./course.schemas";
+import { createCourseType, insertCourseDatabase, findCourseBySubjectType, deleteCourseByIdType } from "./course.schemas";
 
 export class CourseService{
     private repository: CourseRepository;
@@ -46,5 +46,11 @@ export class CourseService{
 
         await this.repository.findByTeacher(teacher, resultValidation);
         return resultValidation
+    }
+
+    async deleteCourse(resultValidation: ResultValidation, idCourse: deleteCourseByIdType){
+      const id = idCourse.id;
+      await this.repository.deleteCourse(id, resultValidation);
+      return resultValidation
     }
 }

@@ -35,4 +35,10 @@ export class CourseController{
         await courseService.findByTeacher(resultValidation, req);
         applyResult(resultValidation, res, 201)
     }
+    async deleteCourse(req: FastifyRequest, res:FastifyReply){
+      const resultValidation = new ResultValidation();
+      const courseService = new CourseService(new CourseRepository(new DatabaseConnector()));
+      await courseService.deleteCourse(resultValidation, req.query);
+      applyResult(resultValidation, res, 201)
+    }
 }

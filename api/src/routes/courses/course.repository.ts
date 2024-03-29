@@ -82,6 +82,15 @@ export class CourseRepository {
             return [];
         }
     }
+    async deleteCourse(id: string, resultValidation: ResultValidation){
+      try{
+        const result = await this.databaseConnector.server('courses').where({id}).del().returning('*');
+        resultValidation.setResult({ data: result[0]});
+      }catch(error){
+        console.error(error);
+        resultValidation.addError('Delete Course Failed', `${error}`, true);
+      }
+    }
     
     
 }

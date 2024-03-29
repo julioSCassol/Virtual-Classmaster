@@ -12,7 +12,7 @@ export class UserService{
   constructor(userRepository: UserRepository){
     this.repository = userRepository;
   }
-  
+
   private loggedInUser: { id: string; name: string } | null = null;
 
   getLoggedInUserId() {
@@ -22,6 +22,13 @@ export class UserService{
   async createUser(body: createAccountType, resultValidation:ResultValidation){
     const { name, email, password, is_teacher } = body;
     const encryptedPassword = await this._hashPassword(password)
+
+    await this.repository.findByEmail(email, resultValidation);
+    if(resultValidation.getResult().data){
+      resultValidation.addError("CREATION_ERROR","Email already exists");
+      return resultValidation;
+    }
+
     const user = insertAccountDatabase.parse({ 
       id: crypto.randomUUID(), 
       name, 
@@ -50,7 +57,6 @@ export class UserService{
       if (resultValidation.hasError()) {
         return resultValidation;
       }
-
       const result = resultValidation.getResult().data;
       const user = getAccountDB.parse(result);
 

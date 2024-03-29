@@ -77,10 +77,29 @@ const ClassroomPage = () => {
 
   const isTeacher = user?.isTeacher;
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
+  const handleDeleteCourse = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/course/deletecourse?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      if (response.ok) {
+        console.log('Curso deletado com sucesso!');
+      } else {
+        console.error('Erro ao deletar o curso');
+      }
+    } catch (error) {
+      console.error('Erro ao conectar com a API', error);
+    }
+    if(isTeacher){
+      alert('Curso deletado com sucesso!')
+      navigate('/professor-home');
+    }
+    return null
+  }
 
   if (!user) {
     navigate('/login');
@@ -90,8 +109,18 @@ const ClassroomPage = () => {
   return (
     <div>
       <div>
-        <h1>Detalhes da Sala de Aula</h1>
-
+        <div id='header'>
+          <h1>Detalhes da Sala de Aula</h1>
+          {
+            isTeacher ? (
+              <button onClick={handleDeleteCourse}>
+              Deletar Curso
+              </button>
+            ): null
+            
+          }
+        
+        </div>
         {classroomData ? (
           <div className='centralizada'>
             {classroomData.data.map(post => (

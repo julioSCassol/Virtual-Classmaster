@@ -80,11 +80,17 @@ export const findCourseByTeacherBody = z.object({
 })
 export type findCourseByTeacherType = z.infer<typeof findCourseByTeacherBody>
 
+export const deleteCourseById = z.object({
+  id
+})
+export type deleteCourseByIdType = z.infer<typeof deleteCourseById>
+
 const models = {
   createCourseBody,
   findCourseBySubjectBody,
   findCourseByStudentBody,
-  findCourseByTeacherBody
+  findCourseByTeacherBody,
+  deleteCourseById,
 }
 
 const options = {
