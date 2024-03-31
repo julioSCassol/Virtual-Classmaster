@@ -11,6 +11,7 @@ async function userRoutes(app: FastifyInstance){
   app.post('/create', {schema:{body:$ref('createAccountBody')}} , userController.createUser)
   app.post('/login', {schema:{body:$ref('loginBody')}}, userController.login)
   app.get('/validateJWT', {preHandler: RequireAuth.bind(app)}, userController.validateJWT)
+  app.post('/deleteuser', {schema:{querystring:$ref('deleteUser')}}, userController.deleteUser)
 
 }
 

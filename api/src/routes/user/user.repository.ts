@@ -11,7 +11,6 @@ export class UserRepository {
 
 async createUser(user: insertAccountDatabaseType, resultValidation: ResultValidation) {
   try {
-    console.log(user)
     const result = await this.databaseConnector.server('users').insert(user).returning('*');
     resultValidation.setResult({ data: result[0] });
   } catch (error) {
@@ -38,6 +37,15 @@ async findByEmail(email: string, resultValidation: ResultValidation) {
   } catch (error) {
     console.error(error);
     resultValidation.addError('Find User Failed', `${error}`, true);
+  }
+}
+async deleteUser(id: string, resultValidation: ResultValidation) {
+  try {
+    const result = await this.databaseConnector.server('users').where({id}).del().returning('*');
+    resultValidation.setResult({ data: result[0] });
+  } catch (error) {
+    console.error(error);
+    resultValidation.addError('Delete User Failed', `${error}`, true);
   }
 }
 

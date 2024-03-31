@@ -1,7 +1,7 @@
 import { FastifyRequest } from "fastify";
 import { ResultValidation } from "../../utils/result-validation";
 import { PostRepository } from "./post.repository";
-import { createAssignmentType, createPostType } from "./post.schemas";
+import { createAssignmentType, createPostType, deletePostType } from "./post.schemas";
 import { resultSchemaType } from "../../utils/resultSchema";
 
 export class PostService{
@@ -11,7 +11,8 @@ export class PostService{
         this.repository = postRepository;
     }
 
-    async createPost(req: FastifyRequest, body: createPostType, resultValidation: ResultValidation){
+    async createPost(req: any, body: createPostType, resultValidation: ResultValidation){
+        console.log(req.user, body)
         const {content, indexed_material, course_id, subjects_post} = body;
 
         if (req.user.is_teacher === true) {
@@ -67,5 +68,10 @@ export class PostService{
         const teacher_id = req.query;
         await this.repository.getPostsByTeacher(teacher_id, resultValidation);
         return resultValidation;
+    }
+    
+    async deletePost(resultValidation: ResultValidation, idPost: deletePostType){
+      await this.repository.deletePost(idPost.id, resultValidation);
+      return resultValidation
     }
 }

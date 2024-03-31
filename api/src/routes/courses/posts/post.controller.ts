@@ -35,4 +35,10 @@ export class PostController{
         await postService.getPostsByTeacher(resultValidation, req);
         applyResult(resultValidation, res, 201)
     }
+    async deletePost(req: FastifyRequest, res: FastifyReply){
+      const resultValidation = new ResultValidation();
+      const postService = new PostService(new PostRepository(new DatabaseConnector()));
+      await postService.deletePost(resultValidation, req.query);
+      applyResult(resultValidation, res, 201)
+    }
 }

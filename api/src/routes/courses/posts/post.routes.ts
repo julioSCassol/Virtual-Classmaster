@@ -10,6 +10,7 @@ async function postRoutes(app:FastifyInstance) {
     app.post('/createassignment', {schema: {body: $ref('createAssignmentBody')}, preHandler: RequireAuth.bind(app)}, postController.createAssignment)
     app.get('/getpostsbycourse', { schema: { querystring: $ref('getPostsByCourseBody') } }, postController.getPostsByCourse);
     app.get('/getpostsbyteacher', { schema: { querystring: $ref('getPostsByTeacherBody') } }, postController.getPostsByTeacher);
+    app.get('/deletepost', { schema: { querystring: $ref('deletePost') } }, postController.deletePost);
 }
 
 export default postRoutes

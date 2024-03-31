@@ -71,9 +71,16 @@ export const tokenFormaterSchema = z.object({
 })
 export type tokenFormaterType = z.infer<typeof tokenFormaterSchema>
 
+export const deleteUser = z.object({
+  id
+})
+
+export type deleteUserType = z.infer<typeof deleteUser>
+
 const models = {
   createAccountBody,
-  loginBody
+  loginBody,
+  deleteUser
 }
 
 const options = {

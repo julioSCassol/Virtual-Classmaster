@@ -1,7 +1,7 @@
 import { DatabaseConnector } from "../../../database";
 import { ResultValidation } from "../../utils/result-validation";
 import { findCourseByTeacherType, idCourseType } from "../course.schemas";
-import { insertAssignmentDatabaseType, insertPostDatabaseType } from "./post.schemas";
+import { deletePostType, insertAssignmentDatabaseType, insertPostDatabaseType } from "./post.schemas";
 
 export class PostRepository{
     private databaseConnector: DatabaseConnector
@@ -67,5 +67,14 @@ export class PostRepository{
             console.error(error);
             resultValidation.addError('Find Posts Failed', `${error}`, true);
         }
+    }
+    async deletePost(id: string, resultValidation: ResultValidation){
+      try{
+        const result = await this.databaseConnector.server('posts').where({id}).del().returning('*');
+        resultValidation.setResult({ data: result[0] });
+      }catch(error){
+        console.log(error);
+        resultValidation.addError('Delete Post Failed', `${error}`, true);
+      }
     }
 }

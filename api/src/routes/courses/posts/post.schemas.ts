@@ -41,13 +41,18 @@ export const insertPostDatabase = z.object({
 })
 export type insertPostDatabaseType = z.infer<typeof insertPostDatabase>
 
+export const deletePost = z.object({
+  id,
+})
+export type deletePostType = z.infer<typeof deletePost>
+
 export const PostDTO = z.object({
     id,
     teacher,
     content,
     indexed_material,
     course_id,
-    subjects_post
+    subjects_post,
 })
 
 
@@ -77,7 +82,8 @@ const models = {
     createPostBody,
     getPostsByCourseBody,
     getPostsByTeacherBody,
-    createAssignmentBody
+    createAssignmentBody,
+    deletePost,
 }
   
 const options = {

@@ -1,6 +1,6 @@
 import { UserRepository } from "./user.repository";
 import { ResultValidation } from '../utils/result-validation';
-import { createAccountType, accountDTO, accountDTOType, loginBodyType, getAccountDB, tokenFormaterSchema, insertAccountDatabase } from './user.schemas';
+import { createAccountType, accountDTO, accountDTOType, loginBodyType, getAccountDB, tokenFormaterSchema, insertAccountDatabase, deleteUserType } from './user.schemas';
 import crypto from 'node:crypto'
 import { env } from "../../env";
 import app from "../../server";
@@ -79,6 +79,11 @@ export class UserService{
     }
   }
 
+  async deleteUser(resultValidation: ResultValidation, idUser: deleteUserType) {
+    await this.repository.deleteUser(idUser.id, resultValidation);
+    return resultValidation;
+  }
+
 
   private async _verifyPassword(candidatePassword: string, salt: string, hash: string):Promise<boolean>{
     const candidateHash = crypto.pbkdf2Sync(candidatePassword, salt, 1000, 200, "sha512").toString('hex');
@@ -114,4 +119,5 @@ export class UserService{
     const token = iv.toString('hex')+ ':' + encrypted
     return token
   }
+
 }

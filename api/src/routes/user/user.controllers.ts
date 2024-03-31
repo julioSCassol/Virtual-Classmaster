@@ -31,4 +31,10 @@ export class UserController{
     resultValidation.setResult({ data: [req.user.id, req.user.name, req.user.email, req.user.is_teacher] });
     applyResult(resultValidation, res, 200)
   }
+  async deleteUser(req: FastifyRequest, res: FastifyReply){
+    const resultValidation = new ResultValidation();
+    const userService = new UserService(new UserRepository(new DatabaseConnector()));
+    await userService.deleteUser(resultValidation, req.query);
+    applyResult(resultValidation, res, 201)
+  }
 }
