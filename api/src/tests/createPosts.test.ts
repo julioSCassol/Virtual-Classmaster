@@ -16,8 +16,6 @@ describe("Create Post", () =>{
 
   it("Should be able to create a course, then a post in that course", async () =>{
 
-  
-  
     const user = await userService.createUser({
       email: 'test@email.com',
       password: 'passwordTest',
