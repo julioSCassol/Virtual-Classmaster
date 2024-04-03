@@ -5,10 +5,10 @@ import { ResultValidation } from "../routes/utils/result-validation"
 
 
 
-describe("Create Course", () =>{
+describe("Create and delete Course", () =>{
   const courseService = new CourseService( new CourseRepository(new DatabaseConnector()))
   const resultValidation = new ResultValidation()
-  it("Should be able to create a course", async () =>{
+  it("Should be able to create a course and then delete it", async () =>{
     const course = await courseService.createCourse({
       name: "Test",
       students:["student@email.com"],

@@ -39,6 +39,21 @@ async findByEmail(email: string, resultValidation: ResultValidation) {
     resultValidation.addError('Find User Failed', `${error}`, true);
   }
 }
+async findByEmailCreate(email: string, resultValidation: ResultValidation) {
+  try {
+    const result = await this.databaseConnector.server('users').where({
+      email: email,
+    });
+    if (result.length > 0) {
+      resultValidation.setResult({ data: result[0] });
+    }else{
+      return 
+    }
+  } catch (error) {
+    console.error(error);
+    resultValidation.addError('Find User Failed', `${error}`, true);
+  }
+}
 async deleteUser(id: string, resultValidation: ResultValidation) {
   try {
     const result = await this.databaseConnector.server('users').where({id}).del().returning('*');

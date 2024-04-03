@@ -23,7 +23,7 @@ export class UserService{
     const { name, email, password, is_teacher } = body;
     const encryptedPassword = await this._hashPassword(password)
 
-    await this.repository.findByEmail(email, resultValidation);
+    await this.repository.findByEmailCreate(email, resultValidation);
     if(resultValidation.getResult().data){
       resultValidation.addError("CREATION_ERROR","Email already exists");
       return resultValidation;
