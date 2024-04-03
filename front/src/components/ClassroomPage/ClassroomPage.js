@@ -77,6 +77,21 @@ const ClassroomPage = () => {
 
   const isTeacher = user?.isTeacher;
 
+  const handleDeletePost = async (postID) => {
+    try {
+      const response = await fetch(`http://localhost:5000/course/post/deletepost?id=${postID}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+    } catch (error) {
+      console.error('Erro ao conectar com a API', error);
+    }
+    return null
+  }
+
+  
   const handleDeleteCourse = async () => {
     try {
       const response = await fetch(`http://localhost:5000/course/deletecourse?id=${id}`, {
@@ -128,6 +143,7 @@ const ClassroomPage = () => {
                 <h2>{post.content}</h2>
                 <p>Matérias Relacionadas: {post.subjects_post.join(', ')}</p>
                 <p>Material indexado: {post.indexed_material}</p>
+                <button onClick={() => handleDeletePost(post.id)}>Deletar</button>
               </div>
             ))}
           </div>
