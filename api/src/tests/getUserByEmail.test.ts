@@ -20,6 +20,7 @@ describe("Get User by email", () =>{
 
     const userFound = await userRepository.findByEmail(user.result.data.email, resultValidation)
     expect(userFound).not.toBe(null)
+    await userService.deleteUser(resultValidation, {id: user.result.data.id})
   })
 })
 
